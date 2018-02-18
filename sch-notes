@@ -1,0 +1,3 @@
+op-conf is different amoung envs
+
+sqlalchemy query may have exception and requires rollback for even select
