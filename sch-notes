@@ -1,3 +1,5 @@
 op-conf is different amoung envs
 
 sqlalchemy query may have exception and requires rollback for even select
+
+It seems that we can't do extend and override for non-ood js.
