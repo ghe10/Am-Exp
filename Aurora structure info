@@ -69,6 +69,8 @@ so we can have 3/6 full write segment read. ????? really????
 
 =======================================================================================================
 
+storage node
+
 |--------------------|
 |--------------------|
 
@@ -95,6 +97,53 @@ recovery: when sn-demon down and restart, it will talk to other sn-demons to fix
 CPL: consistence point log...
 
 =======================================================================================================
+
+Grover vpc
+
+we have a number of instances (ec2 instances), metadata in ddb. data backuped in S3
+
+we have dependency on swf to execute some things like create volume and so on in backgroud.
+
+We also have cp instances as following:
+We also have volume manager(with ebs for log storage), health monitor, workflow, deployment service??, backup manager, restore manager 
+
+Environment set <-> each ec2 instance is tagged by env set
+	eg. : VOLUME_MANAGER_SET -> [VOLLUMEN_MANAGER, ..... (some environements)]
+	    So we will have /apollo/envSet/env ???
+
+
+In ddb, we have many tbs. eg, environment table
+	we have instance id, ip, environment, health status......... all the related metadata
+
+Next we go through services.
+=======================================================================================================
+Volumn manager:
+    APIS:
+	create vol *** most important
+	delete vol
+	expand volulme
+	create net....
+	describe volume, pg.....
+
+it will create colume in volumn table in ddb, do workflow reservation (also update ddb). Here we just update ddb!!!!!! SWF will do real work!!!
+
+SWF workflow will watch for changes and read from ddb and really create pgs, segment (16 pg for 160GB default volume, 96 segments 16 * 6) in different zas in ec2 instances
+
+SWF also incharge of delete volumn.
+
+*****
+Volumn manager also create anetwork interface to communicate to rds cp (csd actually)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
