@@ -57,6 +57,46 @@ We stop at 34 mins.
 
 ======================================================================================================
 
+2018 2 24
+tale? segment: for update, not everything
+full segment: for data
+
+more like 30GB data + derta
+
+Three segments are T and three are F
+
+so we can have 3/6 full write segment read. ????? really????
+
+=======================================================================================================
+
+|--------------------|
+|--------------------|
+
+	|---| 16 kb page
+	 ** derta 1
+	 ** derta 2   these things are usually in memory, then go to persisitent storage in disk
+	.....
+
+a segemnt in volume, we got a long list of dert.
+
+dert are issued by csd and executed by sn-demon
+
+Read: read the page and apply a lot of update. The dertas are in T segments?????? dert are in inmemory buffer ???
+
+Dertas are in memroy, when go to disk, it is persistent log.
+
+The sn-demons talk to each other to get log sequence number and see if we miss some update log. LSN: log sequence number
+
+
+recovery: when sn-demon down and restart, it will talk to other sn-demons to fix holes
+
+
+
+CPL: consistence point log...
+
+=======================================================================================================
+
+
 
 
 
