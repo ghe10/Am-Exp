@@ -22,6 +22,7 @@ volume: think like a file. old mysql use files, we use volume instead.
 |---------------------|
 
 	|--->| 16 kB pages.
+
 We allows rds cp to access any page and get any number of pages in sequence. => read Dage, write log.
 
 Volumes are separate into protection groups (pg).
@@ -51,6 +52,10 @@ Consistency protocol: Quorum, client side driver (csd) need 4/6 for write and 3/
 During deployment, no more than one segment of each volume is affected.
 
 deployment domain is an aws concept, ?????????
+
+We stop at 34 mins.
+
+======================================================================================================
 
 
 
