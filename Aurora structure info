@@ -14,6 +14,8 @@ Operations related to sto is in background.
 
 Aurora : mysql, manf : psql
 
+====================================================================================================
+
 volume: think like a file. old mysql use files, we use volume instead.
 
 |---------------------|
@@ -23,10 +25,34 @@ volume: think like a file. old mysql use files, we use volume instead.
 We allows rds cp to access any page and get any number of pages in sequence. => read Dage, write log.
 
 Volumes are separate into protection groups (pg).
+
 Default volume is 160 GB, each PG will has 10 GB data (fixed). (Now we might support less than 160 GB for smaller db)
 
 RDS db instance <==> VOLUME, it is a one to one mapping. 
 When we need more data space, we will add new pg to it.
+
+=====================================================================================================
+
+We have i2.8xlarge ec2 instances. has 8 ssds, 800GB each, raw block
+
+these are called sn-demon
+
+we have more than 1000 such nodes in a cluster (across multiple availiability zones).
+
+each sn-demon will manage storage on its machine.
+
+Each pg contains 6 segments on 6 different machines (replication), they are separated amoung three azs. 2 copies in each az.
+Then we can tolerate az failure.
+
+=====================================================================================================
+
+Consistency protocol: Quorum, client side driver (csd) need 4/6 for write and 3/6 to read.
+
+During deployment, no more than one segment of each volume is affected.
+
+deployment domain is an aws concept, ?????????
+
+
 
 
 
