@@ -1,0 +1,19 @@
+Lecture for gv and stirage basic
+
+Grovereeee provides storage services.
+      RDS cp deploy oscar engine in ec2 instances.
+      End user: has their own vpc, connect to rds cp (random ec2) at some port.
+      CSD: client side driver, allowing rds cp to talk to storage.
+      
+RDS is storage's customer
+
+Storage has its own vpc. You can't jump through vpc boundary to directly access storage without csd.
+Operations related to sto is in background.
+
+====================================================================================================
+
+Aurora : mysql, manf : psql
+
+volume: think like a file.
+
+
