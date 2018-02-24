@@ -14,6 +14,20 @@ Operations related to sto is in background.
 
 Aurora : mysql, manf : psql
 
-volume: think like a file.
+volume: think like a file. old mysql use files, we use volume instead.
+
+|---------------------|
+|---------------------|
+
+	|--->| 16 kB pages.
+We allows rds cp to access any page and get any number of pages in sequence. => read Dage, write log.
+
+Volumes are separate into protection groups (pg).
+Default volume is 160 GB, each PG will has 10 GB data (fixed). (Now we might support less than 160 GB for smaller db)
+
+RDS db instance <==> VOLUME, it is a one to one mapping. 
+When we need more data space, we will add new pg to it.
+
+
 
 
