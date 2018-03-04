@@ -5,3 +5,5 @@ sqlalchemy query may have exception and requires rollback for even select
 It seems that we can't do extend and override for non-ood js.
 
 When writing CM, pay attention to the questions and detailed activities, especially those that may cause problem.
+
+Add enough operation for db ops. Don't only rely on other others code. Think for yourself, especially for special different kind of network.
