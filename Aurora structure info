@@ -21,13 +21,14 @@ volume: think like a file. old mysql use files, we use volume instead.
 |---------------------|
 |---------------------|
 
-	|--->| 16 kB pages.
+	|--->| 
+ kB pages.
 
 We allows rds cp to access any page and get any number of pages in sequence. => read Dage, write log.
 
 Volumes are separate into protection groups (pg).
 
-Default volume is 160 GB, each PG will has 10 GB data (fixed). (Now we might support less than 160 GB for smaller db)
+Default volume is 160 GB, each PG will has 10 GB data (fixed). (Now we might support less than 160 GB for smaller db) so we have 16 pgs for each volume
 
 RDS db instance <==> VOLUME, it is a one to one mapping. 
 When we need more data space, we will add new pg to it.
@@ -134,6 +135,56 @@ SWF also incharge of delete volumn.
 *****
 Volumn manager also create anetwork interface to communicate to rds cp (csd actually)
 
+
+========================================================================================================
+2018 03 06
+Sextion 2 for grover cp
+
+health monitor: 1. helth of it self 
+                2. health of every apollo environment (mapped to the instances, on instances actually) (health, suspect, unhealth), uses ping and timestamp
+                3. jvm logs are uploaded for it. HM will then upload it to 1. limber for 1 year storage 2. EMR (elastic map-reduce in aws) to do map-reduce task that join the segments (log staff)
+
+	We have a bugcchaser, it will go to query log when we got a ticket for sth......
+
+HM also cut tickets.
+
+Every environment extends groverEnvironment, so they have the properity of eg. ping HM, upload og...
+
+========================================================================================================
+Workflow
+
+trigger based mechienism...
+crom based .... ???
+
+eg. process launch workflow        _____\  
+    environment starts workflow         / eg env may have workflow to infom that this ec2 instance is too bad and should be terminated. Then a termination workflow (process kind) will terminate it (I think it is somewhere else in system)
+
+eg repair workflow: p2p style talk to peer instances with same pg to fill gap, it is a all-running workflow
+
+
+We have a bounch of ec2 instances that has our workflow environments, these guys are controlled by AWS SWF. This the flow frame work.
+
+=========================================================================================================
+
+Deployment service (DS) -> it knows what vfi of what env should be on which machine, which software should be deployed to it.
+
+ec2 itself don't have depoyment service originally, so we build one___.
+
+each instance has a deployment agent in each box, they talk to deployment service.
+
+****
+There is sth called preferred version set and preferred vfi. (29:00)
+
+
+
+
+
+
+
+
+
+
+																												
 
 
 
