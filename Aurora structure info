@@ -175,10 +175,36 @@ each instance has a deployment agent in each box, they talk to deployment servic
 ****
 There is sth called preferred version set and preferred vfi. (29:00)
 
+envs talks to health monitor
+
+Deploymnet status workflow is there, judge success by the percentage of succeeded nodes
+
+pipeline has an script to upload sth config to S3?????
+===========================================================================================================
+
+back manager, restore manager.
+
+For a volume, besides the 6 replications,we also upload it to S3.
+it
+We can restore from an exact time in a eriod (say 7 days), an new volume will be created in the restore.
+Possible cross region volume copy (I think it is through s3).
+
+note volume has base and dertas.
+
+a-chunk?????????????????????????????????????????????? uploaded periodically.
+
+The backup manager will talk to every volume, and gather the dertas exists and upload it to s3
+
+
+snapshot copy: customer want a copy sometime forever, then the copy id is stored, metadata in dynamodb.
 
 
 
+Restore manager:
 
+restore to time, create the volumes, pgs....  a long chain of calling. Also have dchunk. Maybe like data and derta???????????
+
+============================================================================================================
 
 
 
