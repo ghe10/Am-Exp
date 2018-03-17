@@ -1,0 +1,11 @@
+Chapter 11. Use tracer bullets
+It is possible to use the concept of tracer bullets in machine gun to programming and building a new system.
+The advantage over full design and construct models separately is we will have a working sys and make progress and problem visible for whole system.
+
+1. Use tracer code, i.e. build a simple skeleton of the whole system with minimum functionality.
+2. Add component to it. This makes it easier to provide sth working, have a structure that helps everyone to make more progress, easier to
+   debug and test comparing to implemention without a whole skeleton and functionality.
+3. The tracer code may not be working, make change for the small part of code to fix it. This can be discovered earlier.
+
+Note about prototyping: it will generate some one-use code before refactor and re-implementation in the final environment. It can servers as
+the reconnaissance of tracer code.
