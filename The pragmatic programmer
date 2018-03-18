@@ -1,4 +1,5 @@
-Chapter 11. Use tracer bullets
+------------------------------------------------
+Section 11. Use tracer bullets
 It is possible to use the concept of tracer bullets in machine gun to programming and building a new system.
 The advantage over full design and construct models separately is we will have a working sys and make progress and problem visible for whole system.
 
@@ -9,3 +10,10 @@ The advantage over full design and construct models separately is we will have a
 
 Note about prototyping: it will generate some one-use code before refactor and re-implementation in the final environment. It can servers as
 the reconnaissance of tracer code.
+
+------------------------------------------------
+Section 1. The cat ate my source code.
+Take responsibility, make back up and other preparation. Instead of providing excuses, try to provide options. Before that, try what people may
+think about to solve the problem. This will make the staff easier I guess.
+
+When sth goes wrong, just be honest and admit it. Try to fix it.
