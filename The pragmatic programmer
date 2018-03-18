@@ -17,3 +17,11 @@ Take responsibility, make back up and other preparation. Instead of providing ex
 think about to solve the problem. This will make the staff easier I guess.
 
 When sth goes wrong, just be honest and admit it. Try to fix it.
+
+------------------------------------------------
+Section 2. Software Entropy
+The code in a project tends to get messy as time goes by. This is the tradition of the universe. Try to stop it.
+
+1. Broken window: if some of the code is broken/in bad status, it is easy to lead a trend and make the whole project goes stupid. Fix small
+   problems when discovered.
+2. Fireman: a good, clean project will help the programmer to keep this good trend and make the next steps clean as it is now.
