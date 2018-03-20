@@ -1,5 +1,5 @@
 ------------------------------------------------
-Section 11. Use tracer bullets
+Section 10. Use tracer bullets
 It is possible to use the concept of tracer bullets in machine gun to programming and building a new system.
 The advantage over full design and construct models separately is we will have a working sys and make progress and problem visible for whole system.
 
@@ -25,3 +25,27 @@ The code in a project tends to get messy as time goes by. This is the tradition 
 1. Broken window: if some of the code is broken/in bad status, it is easy to lead a trend and make the whole project goes stupid. Fix small
    problems when discovered.
 2. Fireman: a good, clean project will help the programmer to keep this good trend and make the next steps clean as it is now.
+
+------------------------------------------------
+Section 3 
+catalyst 催化
+Stone soup and boiled frogs
+
+When you start a whole project, it is hard and time consuming to gather all the resources at once. People won't join an empty
+party. Just start and do something, and add staff, ask for help and resources step by step. People like to join a process of
+success.
+
+On the other hand, do have a big picture in mind. Don't get further and further from your target during patching and patching. Otherwise
+might be like the poor frog trapped and died in a pot with heated code water.
+
+------------------------------------------------
+Section 4 good enough software
+There is resource, timeline, budget issues for all teams and software. The users won't wait for longer time for a perfect software. They 
+want sth that can fullfill their requirment now, even if it has problems in other aspects. So make progress, have a resonable line (eg. I am
+ok with maintaining this thing in the future, users are ok with these features). 
+
+Don't spend too much time in polish and ruin the software by patching and patching without release.
+
+------------------------------------------------
+
+
