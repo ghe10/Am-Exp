@@ -18,5 +18,17 @@
  * HashMap/TreeMap's keySet is a special set rather than the set we usually use.
  *
  * we can use synchronizedMap to convert Map to thread safe. Need to understand how!!!!!!!!!!!! I think it is just adding sync() to put and get operations.
+ * It uses lock. We need to make sure nobody uses old object to access the data inside to keep the thread safe properity.
  */
 
+/**
+ * Blocking queue may be helpful for producer-consumer ops, it will block the put, get, offer (insert and return true), we might also add
+ * waiting time param when needed.
+ */
+
+/**
+ * We have java.util.concurrent for concurrent ops. We can use Map ......  The size() op is slow (O(n)). ????????????????? It uses weak consistent iterator.
+ * Iterator might not reveal all changes, but no duplicate and exception
+ *
+ * CopyOnWriteArrayList/Set is also helpful.
+ */
