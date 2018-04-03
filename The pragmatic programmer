@@ -68,3 +68,24 @@ Get to know sth:
    - get audience involoved
    - always get back to others
 
+-------------------------------------------------
+Secion 7 reduce duplication
+
+-------------------------------------------------
+Section 8 Orthogonality
+
+To make a system orithogonality, we decouple each part of the system. The code of different part should be able to change separately
+as long as we keep some defined interface.
+
+Try to make component independent, single and well designed purpose.  The code is easier to chanege, make it more productive and not that likely to make mistake.
+Easier to test.
+
+Orthogonality design: a layered approach, this approach makes it easier, the system's upper layer only dependes on lower layer. Watch out for RMI!
+
+- keep your code decoupled
+- avoid global data
+- avoid similar functions
+
+Test is also easier.
+
+
