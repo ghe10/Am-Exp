@@ -89,3 +89,13 @@ Orthogonality design: a layered approach, this approach makes it easier, the sys
 Test is also easier.
 
 
+-----------------------------------------------------
+Section 9 Reversibility 可逆性 ????????
+
+Components should be flexible, changable. The change shouldn't take so much time, otherwise it would be a design problem.
+
+Further understanding is needed.
+
+
+
+
