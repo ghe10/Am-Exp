@@ -96,6 +96,17 @@ Components should be flexible, changable. The change shouldn't take so much time
 
 Further understanding is needed.
 
+-----------------------------------------------------
+Section 11. Prototypes and Post-it notes
+We can use prototypes to try sth and find problems. We mainly value the experience learned from prototype, not the code
+we got.
+
+- when making prototype, focus on the point you want to analyze. Don't try to make it a working solution.
+- if you need a working solution also, try tracer bullet.
+- when prototype archecture, we may not need a real production, just a picture is also helpful.
+
+- high level language may be helpful when prototype, even if we don't use them in real project.
+
 
 
 
