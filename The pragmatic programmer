@@ -113,5 +113,11 @@ People using different language may think differently, stay close to the problem
 ????????
 
 ----------------------------------------------------
+Section 13 Estimating
+We need estimtion about the process, system workload,.......
+The estimation should come with correct unit, eg accuracy. 
+When try to do sth new and needs an estimation, ask sb who has done sth related or similar.
 
-
+A model and design may be helpful for the estimation.
+For coding, update your estimation as working through the problem
+----------------------------------------------------
