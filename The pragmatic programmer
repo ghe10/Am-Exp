@@ -121,3 +121,38 @@ When try to do sth new and needs an estimation, ask sb who has done sth related 
 A model and design may be helpful for the estimation.
 For coding, update your estimation as working through the problem
 ----------------------------------------------------
+Section 14 The power of plain text
+
+Plain text is easy to use, easy to read, easy to test. It may need more space for storage and more computation to read when used for metadata.
+We can operate on it in any tool
+XML may be useful.
+XML 指可扩展标记语言（EXtensible Markup Language）
+XML 是一种标记语言，很类似 HTML
+XML 的设计宗旨是传输数据，而非显示数据
+XML 标签没有被预定义。您需要自行定义标签。
+XML 被设计为具有自我描述性。
+
+leverage  杠杆作用
+-----------------------------------------------------
+Section 15 Shell Games
+find . -name '*.c' -newer Makefile -print
+
+construct an archive of  source files:
+zip archive.zip *.h *.c
+
+find file not changed last week:
+fins . -name '*.java' -mtime +7 -print
+
+find files using a lib:
+find . -name '*.java' -print | xargs grep 'java.awt'
+
+UWIM is a unix env in windows
+-----------------------------------------------------
+Section 16 Power Editing
+Learn an editor well (I need to learn vim...)
+Remember about the extensions.
+-----------------------------------------------------
+Section 17 Source control
+-----------------------------------------------------
+
+
