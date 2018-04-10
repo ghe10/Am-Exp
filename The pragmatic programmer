@@ -155,4 +155,24 @@ Remember about the extensions.
 Section 17 Source control
 -----------------------------------------------------
 
+Section 36 The requirement pit
+
+Get requirement is hard. They are not well defined. We need not only understand what is described,
+but also why is that and how the user goes to the current requreiment mode.
+
+Since the user requirement might change, it is better to use some metadata for a clear view and further usage.
+Be a user might be helpful.
+
+Have a good note of requirement is a good idea. This needs goal, use conditions, extensions, target priority, schedule and so on. P 206, 207
+
+diagram is helpful
+
+Requirement should be abstract, they are not design!!!!!!!
+
+See further, make some staff abstract/flexible for the future.
+
+Maintain a glossary/doc for the project.
+
+
+
 
