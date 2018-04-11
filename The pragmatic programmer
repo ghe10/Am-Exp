@@ -173,6 +173,27 @@ See further, make some staff abstract/flexible for the future.
 
 Maintain a glossary/doc for the project.
 
+-----------------------------------------------
+Section 37 Solving impossible puzzles
+Someimes we may face some probles that are so confusing, harder than we expected.
 
+- are we constraining ourselves???, we might not need to fullfill all the constrains we think. List them, list possible ways, prove or use it.
+- don't just think outside the box, we need find the box, real box!!!
 
+When work hard with problems, think:
+- Is there an easier way?
+- Is this the problem we want to solve?
+- Is this staff must be done in this way?
+- Do we really need to solve this problem? Can we just skip it?
 
+|\
+| \
+|  \
+|   \
+*----*
+|    | \
+*____*__\___________
+
+We are using three lines to connect the four points and go back to start pos!
+The virtual constraint: we assume we need to make a turn at the points: this is not true!!!!
+-----------------------------------------------
