@@ -154,6 +154,18 @@ Remember about the extensions.
 -----------------------------------------------------
 Section 17 Source control
 -----------------------------------------------------
+Section 18 Debugging
+
+Use the tools: print, debugger, ide to visualize the data
+Try to talk to others about your idea to find what's wrong.
+
+It is most likely the changes' fault rather than os/pkg/whatever else issues.
+Traceback is useful!!!!
+
+When the bug is found, think about how to avoid it next time.
+
+Don't assume it, prove it!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+-----------------------------------------------------
 
 Section 36 The requirement pit
 
