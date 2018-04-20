@@ -2,6 +2,8 @@ For swf usage, those unknown staff including whatEverAvtivitiesClient and whatEv
 generated file from swf java sdk. We just need to implement the interface and impl of the swf. The sdk will
 do the rest.
 
+Note that this code generation is used in many palces.
+
 example pom:
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
