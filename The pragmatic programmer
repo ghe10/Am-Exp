@@ -219,3 +219,18 @@ When work hard with problems, think:
 We are using three lines to connect the four points and go back to start pos!
 The virtual constraint: we assume we need to make a turn at the points: this is not true!!!!
 -----------------------------------------------
+Section 38 Not until you are ready
+Gather enough information befre you start working on your project.
+
+-----------------------------------------------
+Section 39 The specification trap
+Though you need prepare, don't keep defining everything!
+
+- it won't work if you never write code!!!
+- start at some point
+   - use prototype or tracer bullet!!
+
+
+
+
+
