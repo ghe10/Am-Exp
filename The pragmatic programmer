@@ -187,10 +187,33 @@ Subclass should be useable with parent (or interface) api.
 Enumerate the rules and promises in design phase.iContract might be used in java.
 -----------------------------------------------------
 Section 22 Dead program tells no lies
+
 When you program goes into a scenarial where is shouldn't reach, stop it asap!!!!
 Otherwise some random staff might happen to the program.
 -----------------------------------------------------
+Section 23 Assertive programming
+FOr most of the time, don't just assume that : this will never happen, this should never fail.
+It might be a good idea to add assert to check the impossible case since it might happen in prod.
 
+Note that assert need to go through the data and might cause more errors and time consumption.
+It can be turned off in complier.
+-----------------------------------------------------
+Section 24 When to use exception
+Exception is used to handle something that is unexpected!!!!!!!
+Eg. system file should be there, user passed in file name may not exist, should have an error code.
+
+For normal control and check, don't use it. Sometimes you may also want to use an error return.
+Add exception will break encasuplation: the caller is tightly coupled due to catch
+-----------------------------------------------------
+Section 25 How to balance resource
+Resource: the one who created it should be responsible to delete it.
+We should always creat resource in one sequence to avoid dead lock.
+The resource should be deleted in reverse order, otherwise some object might be referencing others and cause problem.
+
+For oo language, use class to wrap resource for release automically (eg c++ class, c++ auto_ptr<Node> n (new Node()))
+
+Java have GC, so focus on non-java resources like new files, delete them in exception or finally or somewhere.
+-----------------------------------------------------
 Section 36 The requirement pit
 
 Get requirement is hard. They are not well defined. We need not only understand what is described,
