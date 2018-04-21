@@ -176,6 +176,20 @@ Section 20 Code Generators
 
 Generate code to simplify operations.
 -----------------------------------------------------
+Section 21 design by contract
+Document what a software model should do any verify this is true.
+
+We need precondiction (before start), post condition(we promise to achieve this), class invariant (the class to ensure the condiction 
+is true from caller's perspective).
+
+Subclass should be useable with parent (or interface) api.
+
+Enumerate the rules and promises in design phase.iContract might be used in java.
+-----------------------------------------------------
+Section 22 Dead program tells no lies
+When you program goes into a scenarial where is shouldn't reach, stop it asap!!!!
+Otherwise some random staff might happen to the program.
+-----------------------------------------------------
 
 Section 36 The requirement pit
 
@@ -230,7 +244,11 @@ Though you need prepare, don't keep defining everything!
 - start at some point
    - use prototype or tracer bullet!!
 ------------------------------------------------
+Section 40 circles and arrows
+This is about formal methods. Not sure. Expensive tools might not be good actually.
 
+------------------------------------------------
+v 
 
 
 
