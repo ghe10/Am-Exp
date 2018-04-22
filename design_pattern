@@ -1,0 +1,8 @@
+1. Simple factory pattern
+
+Factory is used to encapsulate the creation of an object. It is usually used when there are multiple possible classes that might be created.
+The factory method encapsulate the logic of choosing the correct class and generate the related object.
+
+It is also possible to use a function from base class and override it all the way. Then the "factory" func just need to call
+that function and the correct overrided function will be called for the sub classes. The "factory" function will return correct object or operation.
+
