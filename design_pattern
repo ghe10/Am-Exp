@@ -6,3 +6,40 @@ The factory method encapsulate the logic of choosing the correct class and gener
 It is also possible to use a function from base class and override it all the way. Then the "factory" func just need to call
 that function and the correct overrided function will be called for the sub classes. The "factory" function will return correct object or operation.
 
+2. Strategy Design Pattern
+For an functionality, we can define multiple algorithms/implementation. These algotithms can be called with same strategy. This decouples the client (caller) and the algorithms behind, 
+making it easier to change/extend the algorithms and writing tests.
+
+"The Strategy Design Pattern defines a family of algorithms, encapsulating each one, and making them interchangeable. Strategy
+lets the algorithm vary independently from the clients that use it."
+
+eg.
+
+public interface TextFormatter {
+    public void format(String s);
+}
+
+// algorithms
+public class LowerTextFormatter implements TextFormatter {
+    public void format(String s) {
+        System.out.println(s.toLowerCase());
+    }
+}
+
+public class HigherTextFormatter implements TextFormatter {
+    ...............
+}
+
+// choose a strategy!!!
+public class TextEditor {
+    private TextFormatter formatter;
+    public TextEditor(TextFormatter formatter) {this.formatter = formatter;}
+    
+    public void format(String s) {formatter.formt(s);}
+}
+
+"The main advantage of the Strategy Design Pattern is that we can enhance the code without much trouble. We can add new text
+formatters without disturbing the current code. This would make our code maintainable and flexible. This design pattern also
+promotes the "code to interface" design principle."
+
+
