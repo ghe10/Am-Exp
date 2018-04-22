@@ -48,4 +48,13 @@ promotes the "code to interface" design principle."
 
 Don't add all functionalities to one class.
 
+4. Open-closed principle OCP
+open for extension, closed for modification
+Try to make the design extensiable, but when we need an exension, we shouldn't update the existing class.
 
+5.  Dependency Inversion Principle
+High level modules shouldn't rely on low low level modeules. They should all rely on interface (abstraction).
+abstraction shouldn't rely on implementation detail. The implementation must follow the abstraction.
+
+
+5. 
