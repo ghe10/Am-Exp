@@ -42,4 +42,10 @@ public class TextEditor {
 formatters without disturbing the current code. This would make our code maintainable and flexible. This design pattern also
 promotes the "code to interface" design principle."
 
+3 Single Responsibility Principle, SRP
+就一个类而言，应当有且仅有一个使其变化的原因。
+"every module or class should have responsibility over a single part of the functionality provided by the software, and that responsibility should be entirely encapsulated by the class."
+
+Don't add all functionalities to one class.
+
 
