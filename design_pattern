@@ -56,5 +56,6 @@ Try to make the design extensiable, but when we need an exension, we shouldn't u
 High level modules shouldn't rely on low low level modeules. They should all rely on interface (abstraction).
 abstraction shouldn't rely on implementation detail. The implementation must follow the abstraction.
 
+http://www.cnblogs.com/gaochundong/p/open_closed_principle.html
 
-5. 
+
