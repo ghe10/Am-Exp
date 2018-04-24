@@ -206,7 +206,7 @@ restore to time, create the volumes, pgs....  a long chain of calling. Also have
 
 ============================================================================================================
 
-Grover-config is used in many envs
+Grover-config is used in many cp envs
 
 
 
