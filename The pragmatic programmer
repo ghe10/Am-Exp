@@ -214,6 +214,15 @@ For oo language, use class to wrap resource for release automically (eg c++ clas
 
 Java have GC, so focus on non-java resources like new files, delete them in exception or finally or somewhere.
 -----------------------------------------------------
+Section -26 Decoupling and the law of demeter
+If you want some service from another model, just ask it, don't get some third party staff to ourself and do it.
+
+Stop letting your change to some model link to change needed in unrelated staff.
+
+law of demeter: stop reaching out to an object to access some method from the third object!!!
+
+
+------------------------------------------------------
 Section 36 The requirement pit
 
 Get requirement is hard. They are not well defined. We need not only understand what is described,
