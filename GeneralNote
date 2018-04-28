@@ -1,2 +1,7 @@
 2018 4 1
 Look through all the stack track before take action or make any decision.
+
+2018 4 28
+When debug, take a look at the error first. Don't make any assumption about
+why the system is working like this. Use more global serch, try to go into 
+functions to find the staff we want.
