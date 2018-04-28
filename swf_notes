@@ -101,3 +101,6 @@ example pom:
 
 
 </project>
+
+
+If we have a correct heartbeater set in the code, we can prevent the wf from parallel execution.
