@@ -103,4 +103,5 @@ example pom:
 </project>
 
 
-If we have a correct heartbeater set in the code, we can prevent the wf from parallel execution.
+If we have a correct heartbeater set in the code, we can prevent the wf from parallel execution. A separate thread is a possible choice.
+This will prevent parallel execution.
