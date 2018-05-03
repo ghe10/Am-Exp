@@ -221,7 +221,18 @@ Stop letting your change to some model link to change needed in unrelated staff.
 
 law of demeter: stop reaching out to an object to access some method from the third object!!!
 
+------------------------------------------------------
+Section 27 Metadata programming
 
+Your code may need config change. Don't use hard code all the time. Use some metadata(eg plain text). Then the system is 
+configurable. 
+
+(1) don't integrate everything (2) put abstraction in code, exact detail (eg, which engine to use..) in metadata. The abstraction
+is helpful since your code is better decoupled, more flexble.
+
+Make business that might change changeable.
+
+Eg of metadata: Enterprise Java Beans ????? a frame work that simplifies program in distributed, transtraction based manner.
 ------------------------------------------------------
 Section 36 The requirement pit
 
@@ -280,7 +291,7 @@ Section 40 circles and arrows
 This is about formal methods. Not sure. Expensive tools might not be good actually.
 
 ------------------------------------------------
-v 
+
 
 
 
