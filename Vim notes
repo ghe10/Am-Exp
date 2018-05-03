@@ -1,0 +1,31 @@
+***************************************
+Basic operations:
+
+vim file_name;
+:i   edit
+:w   write
+:q   exit
+
+:q! exit without saving
+
+copy all: missing
+
+***************************************
+search:
+
+/target   search for target from start to end
+?target   search for target from end to start
+
+n         go to next appear
+
+
+****************************************
+Move cursor
+
+:$                   go to end of file
+:line_number         go to line_number line
+
+vim file.xxx -c ":123"
+
+gg                   go to top first
+
