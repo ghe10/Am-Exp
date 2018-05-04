@@ -234,6 +234,24 @@ Make business that might change changeable.
 
 Eg of metadata: Enterprise Java Beans ????? a frame work that simplifies program in distributed, transtraction based manner.
 ------------------------------------------------------
+
+Section 28
+
+------------------------------------------------------
+Section 29 It is just a view
+
+We cn use publish/subscribe staff to make sure each object only receives what it wants rather then everything. This will
+reduce the coupling between different object and module and simplify the logic inside the receive staff.
+
+MVC: model view controller
+Separate the model from the GUI of it and the controls that manages the view.
+
+eg: model: the data itself   / an abstract way of representing the target object
+    view： multiple ways to show the data, graph, table etc      /      A way to interpret the model. It subscribes to change the mdel and logical events for the controller
+    controller: different input/operation. eg zoom in/out for graph.....   / a way to control the view and provide the model with new data
+    
+ 
+------------------------------------------------------
 Section 36 The requirement pit
 
 Get requirement is hard. They are not well defined. We need not only understand what is described,
