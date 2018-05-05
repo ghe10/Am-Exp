@@ -235,7 +235,23 @@ Make business that might change changeable.
 Eg of metadata: Enterprise Java Beans ????? a frame work that simplifies program in distributed, transtraction based manner.
 ------------------------------------------------------
 
-Section 28
+Section 28 temporal coupling 时序的耦合，并发相关(concurrent)
+
+We need to have a clear view of the system workflow and what should happen after what, or it can be in parallel.
+
+UML activity diagram is helpful for visualize this. It has arrow to got to another action and bold line to show synchronization bar.
+
+---->|----->
+     |-->
+Everyone can proceed when all of them reach the bar.
+
+Design using servce: to decoupling the staff, we can build separate service. Each just receive some task from a (might be centralized) queue
+and do the task. Then poll for more. This also makes it easier to load balancing without centrailzed control.
+
+Design point: 1. watch out for static variable and global variable since they might be concurrently accessed.
+              2. we might have problem if the constructor doesn't initialize the object. Use class invariant maybe.
+              3. watch out for state relted staff.
+              4. many libs may have sth related to time and not thread safe.
 
 ------------------------------------------------------
 Section 29 It is just a view
