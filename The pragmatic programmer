@@ -266,6 +266,19 @@ eg: model: the data itself   / an abstract way of representing the target object
     view： multiple ways to show the data, graph, table etc      /      A way to interpret the model. It subscribes to change the mdel and logical events for the controller
     controller: different input/operation. eg zoom in/out for graph.....   / a way to control the view and provide the model with new data
 ------------------------------------------------------
+Section 31 Programming by coincidence (is bad)
+Some times i=you code is working only because it is by coincidence. Don't do this,
+
+   - don't rely on undocumented feature, if you must, add comment about your assumeption.
+   - use assert or other staff to prove that the assumption is correct.
+   
+   - make sure the context of your code now is correct and your code works on other status.
+   
+   - Be sure about what you are doing!!!!!!!!!
+   - you need a plan!!!!!
+-------------------------------------------------------
+
+------------------------------------------------------
 Section 37 blackboard
 
 Use a blackboard to show staff and let everyone look at it and add their info is helpful.
