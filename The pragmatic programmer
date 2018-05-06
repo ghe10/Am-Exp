@@ -277,6 +277,24 @@ Some times i=you code is working only because it is by coincidence. Don't do thi
    - Be sure about what you are doing!!!!!!!!!
    - you need a plan!!!!!
 -------------------------------------------------------
+Section 32 algorithm speed
+
+Big O : algorithm speed based on the input size.
+
+Find the bottleneck
+O() fast might requires conplicated setup staff.
+
+
+------------------------------------------------------
+Section 33 Refactor
+
+When a piece of code is not suitable/ causing duplication/ slow/ using old knowledge / nonorthogonal design ... do it!!!
+
+Points:
+   - don' refactor and add functions
+   - make sure you have good test before start, so you won't break staff. Do the test when you make a change.
+   - take small steps.
+   
 
 ------------------------------------------------------
 Section 37 blackboard
@@ -341,8 +359,7 @@ Though you need prepare, don't keep defining everything!
 Section 40 circles and arrows
 This is about formal methods. Not sure. Expensive tools might not be good actually.
 
-------------------------------------------------
-
+-----------------------------------------------
 
 
 
