@@ -295,9 +295,16 @@ Points:
    - make sure you have good test before start, so you won't break staff. Do the test when you make a change.
    - take small steps.
    
+------------------------------------------------------
+Section 34 Testable code
 
 ------------------------------------------------------
-Section 37 blackboard
+Section 35 Evil Wizards / code generation
+
+When you use a code generation staff, make sure to understand what is generated and how the generated code work.
+
+------------------------------------------------------
+Section 30 blackboard
 
 Use a blackboard to show staff and let everyone look at it and add their info is helpful.
 This strategy is also helpful for system (share info staff)
