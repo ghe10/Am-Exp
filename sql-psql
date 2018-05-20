@@ -22,3 +22,53 @@ A INNER JOIN creates a new result table by combining column values of two tables
 left outer join ： add null to left side with no match
 right outer join : add null to right side tb with no match in left tb
 full outer join : add null to add staff with no match
+
+eg:
+SELECT *
+    FROM weather INNER JOIN cities ON (weather.city = cities.name);
+
+CREATE VIEW view_dept_201
+ AS SELECT emp_id, name, hire_date
+ FROM gdb.employees 
+ WHERE department = 201;
+
+
+for get some info to a json and combine the json to sth:
+1. get the json data
+
+select operation, user, environment from environment_type right outer join latest_user on 
+  (environment_type.cluster = latest_user.cluster and environment_type.environment = latest_user.environment)
+
+2. make it into json
+
+select row_to_json(user_data)
+from (
+  select operation, user, environment from environment_type right outer join latest_user on 
+  (environment_type.cluster = latest_user.cluster and environment_type.environment = latest_user.environment) 
+) user_data
+
+3. add as a new column in the view
+
+# select environment_type.XXX, ...., last_user_json from
+# (
+#   select row_to_json(user_data)
+#   from (
+#    select operation, user, environment from environment_type right outer join latest_user on 
+#     (environment_type.cluster = latest_user.cluster and environment_type.environment = latest_user.environment) 
+#      where 
+#   ) user_data
+# ) last_user_json
+
+with as version:
+
+with last_user_json_data as  (
+select environment_type.cluster，environment_type.environment， row_to_json(user_data)
+from (
+  select operation, user, environment from environment_type right outer join latest_user on 
+  (environment_type.cluster = latest_user.cluster and environment_type.environment = latest_user.environment) 
+) user_data
+）
+
+select environment_type.xxx user_data from last_user_json_data as last_user where environment_type.xxx = user_data.xxx
+
+This might work
