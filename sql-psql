@@ -72,3 +72,30 @@ from (
 select environment_type.xxx user_data from last_user_json_data as last_user where environment_type.xxx = user_data.xxx
 
 This might work
+
+
+------------------
+Aggregation functions are very useful in this case:
+
+CREATE TABLE tbl_Students
+(
+    StudID INT 
+    ,StudName CHARACTER VARYING
+    ,StudGrades CHAR(1)
+    ,test CHAR(1)
+);
+
+INSERT INTO tbl_Students 
+VALUES 
+(1,'Anvesh','A','T'),(2,'Kimly','B','T')
+,(3,'Jenny','C','T'),(4,'Ali','B', 'T')
+,(5,'Mukesh','D','T'),(6,'Sofia','A', 'F');
+
+SELECT 	
+	StudGrades
+	,json_agg(json_build_object('StudName', StudName, 'test', test)) AS StudPerGrade
+FROM tbl_Students
+GROUP BY StudGrades
+
+http://rextester.com/l/postgresql_online_compiler
+
