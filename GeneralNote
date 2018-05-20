@@ -9,3 +9,8 @@ functions to find the staff we want.
 
 2018 5 14
 grep -v "xxx" : exclude xxx
+
+2018 5 19
+ps -aux | grep : list process
+
+zgrep .... filename : grep from .gz.zip file
