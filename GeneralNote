@@ -14,3 +14,5 @@ grep -v "xxx" : exclude xxx
 ps -aux | grep : list process
 
 zgrep .... filename : grep from .gz.zip file
+
+ls -LR : list all the files in this older (recursively)
