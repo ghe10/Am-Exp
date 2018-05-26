@@ -367,6 +367,39 @@ Section 40 circles and arrows
 This is about formal methods. Not sure. Expensive tools might not be good actually.
 
 -----------------------------------------------
+Section 43 Ruthless 冷酷的 testing
+
+Test early, test often, test automically.
+When you write code, write test along the way.
+
+Unit test will test whether each part of the whole system works as expected.
+Integration test test shows that the integration of multiple parts could work well. (catch the bg staff)
+
+validation and verification: is this what we/user really need?
+
+When all these tests are finished, we are about to go to prod. System will not be under ideal condition. Discover how it is under real world where
+memory, disk... might have problem.
+
+Performance testing: stress, large load
+
+Usability testing: like bugbash, test with human/real user
+
+How to test:
+
+1. regression test: compare thee code output to some known value.
+2. Test data: a. real world data. b. synthetic data, human generated, maybe with statistical staff, boundary conditions.
+3. for GUI, you may still need manual test. besides, the backend should be decoupled from the front end and tested without front end.
+
+Note that 100% coverage only means your test runs all the lines of code, it doesn't necessary mean that you have reach all the possible
+program states. you won;t know if you have reached all.
+
+When production code exists, we should have test there.
+
+When you find a bug manually, it should be the last time you need to find it manually.
+
+
+
+ 
 
 
 
