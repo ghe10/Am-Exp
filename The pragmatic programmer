@@ -397,7 +397,16 @@ When production code exists, we should have test there.
 
 When you find a bug manually, it should be the last time you need to find it manually.
 
+-----------------------------------------------------------------------------------
+Section 45 Great Expectations
+People have expection on your system. Try to match with their exception and do a little bit better. 
 
+Don't just focus on the tech, business is also very important.
+
+do communication on the expections, don't just think by yourself.
+
+tracer bullets might be helpful~
+------------------------------------------------------------------------------------
 
  
 
