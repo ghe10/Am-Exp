@@ -18,3 +18,5 @@ zgrep .... filename : grep from .gz.zip file
 ls -LR : list all the files in this older (recursively)
 
 git push -u origin branch_name : create remote branch with this name, let current branch track the remote branch
+
+remember to sync the staff
