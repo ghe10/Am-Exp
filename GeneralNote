@@ -20,3 +20,5 @@ ls -LR : list all the files in this older (recursively)
 git push -u origin branch_name : create remote branch with this name, let current branch track the remote branch
 
 remember to sync the staff
+
+python KeyError: generally it means the key doesn't exist in the dict
