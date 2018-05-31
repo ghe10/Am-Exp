@@ -22,3 +22,6 @@ git push -u origin branch_name : create remote branch with this name, let curren
 remember to sync the staff
 
 python KeyError: generally it means the key doesn't exist in the dict
+
+2018 5 30
+touch filename : create a new file
