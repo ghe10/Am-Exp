@@ -25,3 +25,8 @@ python KeyError: generally it means the key doesn't exist in the dict
 
 2018 5 30
 touch filename : create a new file
+
+2018 6 7
+rpm2cpio ../libstdc++-4.3.0-8.i386.rpm | cpio -idv
+
+uncompress rpm and list files inside
