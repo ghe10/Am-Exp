@@ -30,3 +30,5 @@ touch filename : create a new file
 rpm2cpio ../libstdc++-4.3.0-8.i386.rpm | cpio -idv
 
 uncompress rpm and list files inside
+
+ls -i : list file with size
