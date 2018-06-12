@@ -1,0 +1,8 @@
+ Red Hat Package Manager
+ 
+ An RPM package can contain an arbitrary set of files. The larger part of RPM files encountered are “binary RPMs” (or BRPMs) 
+ containing the compiled version of some software. There are also “source RPMs” (or SRPMs) files containing the source code used 
+ to produce a package. These have an appropriate tag in the file header that distinguishes them from normal (B)RPMs,
+ causing them to be extracted to /usr/src on installation. SRPMs customarily carry the file extension “.src.rpm” 
+ 
+ 
