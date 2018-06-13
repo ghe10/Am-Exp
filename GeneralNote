@@ -35,3 +35,7 @@ ls -i : list file with size
 
 2018 6 9
 rpm -qa : list all installed rpms
+
+2018 6 13
+la -la : list symlink also
+
