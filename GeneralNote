@@ -39,3 +39,5 @@ rpm -qa : list all installed rpms
 2018 6 13
 la -la : list symlink also
 
+2018 6 14
+perl we should avoid use undefined var and pure staff when strict is on the top of the file.
