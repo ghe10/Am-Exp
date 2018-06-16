@@ -1,3 +1,12 @@
 https://coolshell.cn/articles/9606.html
 JAVA HASHMAP的死循环
 
+JAVA HASHMAP的死循环
+HashTable is slow because the whole object has only one lock, this will prevent any access from
+others.
+
+JAVA HASHMAP的死循环
+We will separate the data sotrage into a few groups, each part has a lock.
+
+ConcurrentHashMap is generated with 1. Segment 2. HashEntry
+
