@@ -32,3 +32,5 @@
  *
  * CopyOnWriteArrayList/Set is also helpful.
  */
+
+/*Use optional to get better handling of null staff*/
