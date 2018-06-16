@@ -1,7 +1,8 @@
 https://coolshell.cn/articles/9606.html
 JAVA HASHMAP的死循环
+This is caused by thread hang up during rehash, then another thread will do rehash and change next, might generate a circle in the next 
+linked list in one entry.
 
-JAVA HASHMAP的死循环
 HashTable is slow because the whole object has only one lock, this will prevent any access from
 others.
 
@@ -10,3 +11,6 @@ We will separate the data sotrage into a few groups, each part has a lock.
 
 ConcurrentHashMap is generated with 1. Segment 2. HashEntry
 
+Threadpool's execute will return an future staff, we can use it to check whether the task is finished.
+
+to page 26
