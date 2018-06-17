@@ -13,4 +13,8 @@ ConcurrentHashMap is generated with 1. Segment 2. HashEntry
 
 Threadpool's execute will return an future staff, we can use it to check whether the task is finished.
 
+ReentrantLock in java can be fair or unfailr (fair: first queue, first serve, unfair: no sqauence)
+fair is implemented by a waiting queue staff
+
+https://blog.csdn.net/lipeng_bigdata/article/details/52154637
 to page 26
