@@ -17,4 +17,6 @@ ReentrantLock in java can be fair or unfailr (fair: first queue, first serve, un
 fair is implemented by a waiting queue staff
 
 https://blog.csdn.net/lipeng_bigdata/article/details/52154637
-to page 26
+
+We have a lot of different blocking queues from java. pay attention to fair and unfair staff.
+to page 43
