@@ -6,3 +6,15 @@
  causing them to be extracted to /usr/src on installation. SRPMs customarily carry the file extension “.src.rpm” 
  
  
+ Note about spec file:
+ 
+ %prep happens for prepare for rpm generation.
+ 
+ the build section is used to build before create the rpm.
+ the intall section is used to create the rpm rather then used to install on target machine.
+ 
+ the files section used to specify files to include the rpm. If it is blank, it will include nothing.
+ 
+ There are other sections that are used to "install" rpm in destination.
+ 
+ 
