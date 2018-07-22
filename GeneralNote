@@ -41,3 +41,6 @@ la -la : list symlink also
 
 2018 6 14
 perl we should avoid use undefined var and pure staff when strict is on the top of the file.
+
+2018 7 22
+Keep an eye on jvm crash due to instance size.
