@@ -44,3 +44,7 @@ perl we should avoid use undefined var and pure staff when strict is on the top 
 
 2018 7 22
 Keep an eye on jvm crash due to instance size.
+
+2018 7 24
+Use command to download:
+curl 'http://.............' > log.txt
