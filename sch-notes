@@ -11,3 +11,5 @@ Add enough operation for db ops. Don't only rely on other others code. Think for
 Think and make design decision, get clear about the definition of related staff before action.
 
 RPM is used everywhere.
+
+Now RPM is only uploaded by itself
