@@ -221,7 +221,7 @@ lagging pg is dangerous
 
 
 
-
+If you want to check the backup status, lrt... go to avtivated continuous backup
 
 
 
