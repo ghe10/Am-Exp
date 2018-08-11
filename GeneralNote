@@ -51,3 +51,12 @@ curl 'http://.............' > log.txt
 
 2018 8 1
 If sth goes wrong, also conside by pass it!!!
+
+
+2018 8 11
+ls with sort:
+
+ls -lt
+or (for reverse, most recent at bottom):
+
+ls -ltr
