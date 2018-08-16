@@ -60,3 +60,7 @@ ls -lt
 or (for reverse, most recent at bottom):
 
 ls -ltr
+
+2018 8 15
+ll : ls -l list full info
+Check permission before access customer data
