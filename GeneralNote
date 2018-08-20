@@ -67,3 +67,5 @@ Check permission before access customer data
 
 2018 8 20
 Thread pool executor has wokr queue and handler for reject
+
+This work is defined with Thread submitted, different from what I am using
