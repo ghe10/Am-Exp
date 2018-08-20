@@ -64,3 +64,6 @@ ls -ltr
 2018 8 15
 ll : ls -l list full info
 Check permission before access customer data
+
+2018 8 20
+Thread pool executor has wokr queue and handler for reject
