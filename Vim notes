@@ -29,3 +29,4 @@ vim file.xxx -c ":123"
 
 gg                   go to top first
 
+vim line number:  :set number
