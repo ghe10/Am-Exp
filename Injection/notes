@@ -1,0 +1,9 @@
+1) Could not find a suitable constructor in NoInterfaceClass. Classes must have either one (and only one) constructor annotated with @Inject or a zero-argument constructor that is not private.
+  at NoInterfaceClass.class(NoInterfaceClass.java:14)
+  while locating NoInterfaceClass
+  
+  As long as we have something wiht constructor @Inject, it will be used by Guice modeluct
+
+2) we can have a @Inject private constructor, then no one can do random staff
+
+3) without @Inject, we must have a constructor without param.
