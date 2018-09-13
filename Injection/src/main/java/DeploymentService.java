@@ -37,8 +37,11 @@ public class DeploymentService implements Service {
     public static void main(String[] args) {
         Injector injector = Guice.createInjector(new DeploymentModel());
         DeploymentService deploymentService = injector.getInstance(DeploymentService.class);
-        deploymentService.setDryRun(true);
-        deploymentService.setServiceId(100);
-        deploymentService.execute();
+//        deploymentService.setDryRun(true);
+//        deploymentService.setServiceId(100);
+//        deploymentService.execute();
+
+        NoInterfaceClass noInterfaceClass = injector.getInstance(NoInterfaceClass.class);
+        noInterfaceClass.showTask();
     }
 }
