@@ -224,6 +224,12 @@ lagging pg is dangerous
 If you want to check the backup status, lrt... go to avtivated continuous backup
 
 
+-----------------------
+on net staff:
+
+从master 节点来说, master 在进行quorum 写入的时候是能够获得并记录每一个storage node 当前的VDL, 所以读取的时候直接去拥有最新的VDL 的storage node 去读取即可.
+
+对于slave 节点, master 在向storage node 写redo record 的同时, 也异步同步redo log给slave 节点, 同时也会更新VDL, VCL, SCL 等等这些信息给从节点, 从节点本身构造本地的local cache. 并且slave 节点也拥有全局的每一个storage node 的VDL 信息, 因此也可以直接访问到拥有最新的storage node 的节点.
 
 
 
