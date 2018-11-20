@@ -1,0 +1,84 @@
+***************************************
+Basic operations:
+
+vim file_name;
+:i   edit
+:w   write
+:q   exit
+
+:q! exit without saving
+
+copy all: missing
+
+***************************************
+search:
+
+/target   search for target from start to end
+?target   search for target from end to start
+
+n         go to next appear
+
+
+****************************************
+Move cursor
+
+:$                   go to end of file
+:line_number         go to line_number line
+
+vim file.xxx -c ":123"
+
+gg                   go to top first
+
+vim line number:  :set number
+
+****************************************
+Delete: x
+Undo delete: u
+redo: CTRL + R
+
+a append after the cursor
+i insert before cursor
+
+dd: delete a line
+
+o: open a new line after this
+
+:help : asking for help!!!
+
+-----
+insert multiple same chars:
+	1. use esc to exit insert mode
+	2. move cursor to correct pos
+	3. type 3;  type insert command to got into insert mode, eg i.;  type what you want, like k;  click esc, vim will insert 3 times of k
+
+w: move forward word by word
+b: move back word by word
+
+$: move to end of line
+^: move to start non empty char of line
+
+:set number  : shows line number
+
+in non-edit mode, fx search for x in the line
+Fx search from right to left
+
+
+CTRL + G shows where we are in file
+CTRL + U up half a page
+CTRL + D down half a page
+
+d3w deletes the next 3 words
+D or d$ delete the rest of line
+
+. repeat the last deletion/change command
+
+
+J will join the current line with next one !!!
+
+rx will repace current cursor pos with x
+~ changes case of a command
+
+
+add staff to ~/.vimrc to add by default, eg line num
+
+reached line 28 of the vim book
