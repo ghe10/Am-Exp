@@ -1,0 +1,11 @@
+We can do simple regular expression.
+------------------------------------------------
+abc   will match for abc
+.     will match for any single char
+a*    will match for 0 - any number of a
+.*    will match for anything
+..* will match for some char + any other staff following, it soesn't match for nothing
+^abc match for anything starts with abc
+end$ match for anything ends with end
+
+-------------------------------------------------
