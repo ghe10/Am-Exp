@@ -9,3 +9,109 @@ a*    will match for 0 - any number of a
 end$ match for anything ends with end
 
 -------------------------------------------------
+
+abc+	matches string that has ab followed by one or more of c
+
+abc?    matches string followed by zero or one c
+
+abc{2}, abc{2,}, abc{2,5} 	ab followed by 1. 2c; 2. 2 or more c;  3. 2 up to 5 c;
+
+a(bc)* 	matches string with a followed by zero or more bc
+
+a(b|c) a[bc]	string starts with a and followed by one b or one c
+
+--------------------------------------------------
+
+\d matches a single char of a digit
+\w matches a single alphanumeric char
+\s matches a white space
+
+\D matches a single non digit char
+\W matches a single non alphanumeric char
+\S matches a non white space
+
+--------------------------------------------------
+
+escape
+
+In order to be understood literally, the following chars must be escaped:
+^.[$()|*+?{\
+A "\" needs to be added before them.
+
+match also works for non-printable characterrs:
+tabs: \t
+new-lines \n
+carriage returns \r ????????
+
+--------------------------------------------------
+Flags!!!!!
+
+reges can come within // like /abc?/, and we can add staff after final /.
+
+g	global, regex doesn't return after first match, it will proceed from the end of the first match
+
+m 	multi-line. this will let ^ and $ matches the string from start of a line and end of a line instead of a whole string
+
+i	insensitive. matches the whole expression case-insensitive, by default it is case sensitive
+
+not very clear about how to use them in java : java has a flag in Pattern.compile as Pattern.MULTILINE for them, I assume this function call accepts random number of passed in params.
+
+---------------------------------------------------
+Grouping and capture
+
+a(bc)	bc are grouped
+
+a(?:bc)	bc are in a non-capture group as it is disabled ??????????
+
+a(?<foo>bc) put a name foo to the match group
+
+---------------------------------------------------
+[abc] matches string has one char a or b or c
+[a-c]
+
+[a-fA-F0-9] matches all the ranges, one char
+
+[^a-zA-Z] match for string without letter from a-z A-Z
+
+when inside the bracket all special char including the backslash \ are no special power, no escape needed inside []
+
+---------------------------------------------------
+	
+Greedy and lazy matches
+
+* + {} are greedy matches, they will try to expand the reault string as much as possible.
+
+eg <.+> for string "<div>foo</div>" will capture the whole string instead of <div>
+<.+?> will make it lazy and matches only <div>
+
+---------------------------------------------------
+Advanced staff:
+
+1.boundaries
+
+\babc\b performs whole word search for only abc, it won't match for dabcd
+
+\Babc\B search for abc completely surrounded by word char like dabcd
+
+the two can be combined like \babc\B
+
+-----
+([abc])\1 back reference
+
+This regex is a two section thing, it will first do match for ([abc]), then the 1 will match for the thing that is matched in ([abc]). So the regex in total wll match for aa bb cc staff.
+
+([abc])([de])\2\1 will also work, it will first do ()() matching, then match for another staff exactly same as  match result of ([de]) then staff same as result of ([abc]), 4 char in total.
+
+(?<foo>[abc])\k<foo>   we put the name foo to the group and we reference it later (\k<foo>). 
+
+------
+d(?=r)       matches a d only if is followed by r, but r will not be part of the overall regex match
+
+(?<=r)d      matches a d only if is preceded by an r, but r will not be part of the overall regex match
+
+The point is the extra r is a condiction not part of regex
+
+d(?!r)       matches a d only if is not followed by r, but r will not be part of the overall regex match
+
+(?<!r)d      matches a d only if is not preceded by an r, but r will not be part of the overall regex match
+
