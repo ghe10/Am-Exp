@@ -36,3 +36,14 @@
 /*Use optional to get better handling of null staff*/
 
 /* buffer reader might help to read super large file in java https://www.cnblogs.com/duanxz/p/4874712.html */
+
+/* Java NIO. introduced from jdk 1.4
+ * Main difference: NIO is Buffer facing,  channel reading/writing to buffer. The read/write call could return without waiting for
+ * the actual io operation to finish. http://tutorials.jenkov.com/java-nio/asynchronousfilechannel.html
+ * Selector in NIO can help one thread to working on staff from different NIO channel and let one thread to do resonable staff rather than
+ * waiting all the way.
+ *
+ * If you need async operations, you need latter version NIO2 which helps to provide async IO operations which returns Future obj. This is hard to use though
+ * NIO2: More New IO https://www.jianshu.com/p/07d3d421a877
+ */
+
