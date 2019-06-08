@@ -1,0 +1,13 @@
+Ambari is used to store configuration info in hdinsight cluster, this is also an apache project
+
+https://hdinsight.github.io/ambari/ambari-landing
+
+Ambari db usage in hdinsight:
+https://hdinsight.github.io/ambari/ambari-usage-in-hdinsight.html
+
+Apache Ambari api:
+https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-manage-ambari-rest-api
+
+Ambari 
+ftp://ftp.newtek.com/pub/reads/bk_ambari-user-guide-20161128.pdf
+https://www.slideshare.net/ChicagoHUG/ambari-chug20140314
