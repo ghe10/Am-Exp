@@ -1,1 +1,16 @@
+Databrick is using resource from aws/azure to provide service for spark related analysis. Aws provides resource, databrick is in charge of bring up
+cluster and do whatever you asked.
 
+The High concurrency cluster is an advantage from them. They have good auto scaling logic (maybe) to start worker node for spark.
+
+The whole strategy is based on auto scaling. Data are on the cluster and the (data etc) will be gone if cluster terminated.
+Cluster configuration is preserved somehow by databrick as well as the notebook(task) we created with query/python code etc
+     notebook is a web-based interface to a document that contains runnable code, visualizations, and narrative text. Notebooks are one interface for interacting with Databricks.
+     https://docs.databricks.com/user-guide/notebooks/index.html
+     
+The metadata is not exposed. The instance ssh key is from databrick themselves.
+
+If terminated, the whole c=high concurrent cluster is gone, (all instances terminated in a while).
+It can be restarted latter.
+
+It only support spark workload. According to their log, they have some hive relate pkg there.
