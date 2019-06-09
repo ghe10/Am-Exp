@@ -11,3 +11,104 @@ https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-hadoop-manage-ambari-
 Ambari 
 ftp://ftp.newtek.com/pub/reads/bk_ambari-user-guide-20161128.pdf
 https://www.slideshare.net/ChicagoHUG/ambari-chug20140314
+
+
+
+-------------------------------------------------------
+Some details about db usage in hdinsight cluster
+-------------------------------------------------------
+emr: /etc/hadoop/conf folder has the hadoop configurations
+
+hdinsight log management:
+
+Access the Hadoop log files
+HDInsight stores its log files both in the cluster file system and in Azure storage.
+https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-log-management
+
+------------------------------
+file system backup:
+https://azure.microsoft.com/en-us/blog/azure-managed-disk-backup/
+
+How do do disk back up immediately:
+search for "Run a backup immediately" in https://docs.microsoft.com/en-us/azure/backup/backup-azure-vms-first-look-arm
+
+Your team might want to implement some back up logic if you just need to backup part of the disk
+----------------------------------------
+Hdinsight default use Azure sql db for metastore
+https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-external-metadata-stores
+"The default metastore uses the basic Azure SQL DB, which has a five DTU (database transaction unit) limit. This default metastore is typically used for relatively simple workloads that don't require multiple clusters and don’t need metadata preserved beyond the cluster's lifecycle."
+----------------------------------
+Azure sql db support point in time restore
+https://docs.microsoft.com/en-us/azure/sql-database/sql-database-automated-backups
+back up can be keeped for sometime (I think)
+
+-------------------------------------
+ambari db 
+root       5103 18.4  2.5 5749928 723648 ?      Ssl  05:51   3:02 java -server -XX:NewRatio=3 -XX:+UseConcMarkSweepGC -XX:-UseGCOverheadLimit -XX:CMSInitiatingOccupancyFraction=60 -Dsun.zip.disableMemoryMapping=true -Xms512m -Xmx2048m -Djava.security.auth.login.config=/etc/ambari-server/conf/krb5JAASLogin.conf -Djava.security.krb5.conf=/etc/krb5.conf -Djavax.security.auth.useSubjectCredsOnly=false -cp /etc/ambari-server/conf:/usr/lib/ambari-server/*:/usr/share/java/mssql-jdbc-7.0.0.jre8.jar:/usr/share/java/sqljdbc_7.0 org.apache.ambari.server.controller.AmbariServer
+
+Ambari Database
+HDInsight creates SQL Azure DB under the hood to serve as the database for Ambari server. The default service tier is S0, please check what this means here: https://docs.microsoft.com/en-us/azure/sql-database/sql-database-resource-limits
+
+For any cluster with workernode count bigger than 16 when creating the cluster, we choose S2 as the database service tier, which handles load for a bigger cluster better.
+
+https://hdinsight.github.io/ambari/ambari-usage-in-hdinsight.html
+
+-----------------------
+
+hive metastore 
+
+User can add regular sql db to preserve the data. 
+https://blogs.msdn.microsoft.com/azuredatalake/2017/03/24/hive-metastore-in-hdinsight-tips-tricks-best-practices/
+"In HDInsight, we use Azure SQL database as Hive Metastore. Azure SQL DB is relational database-as-a-service (DBaaS) hosted in the Azure and give availability SLA of 99.99."
+
+---------------------
+ranger db 
+
+sshuser@hn0-testin:/etc/ranger/admin/conf$ pwd
+/etc/ranger/admin/conf
+
+<configuration>
+        <property>
+                <name>ranger.jdbc.sqlconnectorjar</name>
+                <value>/usr/share/java/mysql-connector-java.jar</value>
+                <description></description>
+        </property>
+        <property>
+                <name>ranger.service.user</name>
+                <value>ranger</value>
+                <description></description>
+        </property>
+        <property>
+                <name>ranger.service.group</name>
+                <value>ranger</value>
+                <description></description>
+        </property>
+
+
+
+        <property>
+                <name>ajp.enabled</name>
+                <value>false</value>
+                <description></description>
+        </property>
+
+Looks like it is using sql data base also.
+
+----------------------------
+
+oozie db : sql server also (I see this as default in Ambari home page for jdbc connection)
+
+oozie     13744  4.5  1.5 5708844 439748 ?      Sl   05:54   0:39 /usr/lib/jvm/java-8-openjdk-amd64/bin/java -Djava.util.logging.config.file=/usr/hdp/current/oozie-server/oozie-server/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Dhdp.version=2.6.5.3008-11 -Xmx2048m -XX:MaxPermSize=256m -Dwhitelist.filename=core-whitelist.res,oozie-whitelist.res -Dcomponent=oozie -Xmx2048m -XX:MaxPermSize=256m -Dwhitelist.filename=core-whitelist.res,oozie-whitelist.res -Dcomponent=oozie -Dderby.stream.error.file=/var/log/oozie/derby.log -Doozie.home.dir=/usr/hdp/2.6.5.3008-11/oozie -Doozie.config.dir=/usr/hdp/current/oozie-server/conf -Doozie.log.dir=/var/log/oozie -Doozie.data.dir=/hadoop/oozie/data -Doozie.instance.id=hn0-testin.4hldsehbfxyengggxchfmkbafd.cx.internal.cloudapp.net -Doozie.config.file=oozie-site.xml -Doozie.log4j.file=oozie-log4j.properties -Doozie.log4j.reload=10 -Doozie.http.hostname=hn0-testin.4hldsehbfxyengggxchfmkbafd.cx.internal.cloudapp.net -Doozie.admin.port=11001 -Doozie.http.port=11000 -Doozie.https.port=11443 -Doozie.base.url=http://hn0-testin.4hldsehbfxyengggxchfmkbafd.cx.internal.cloudapp.net:11000/oozie -Doozie.https.keystore.file=/home/oozie/.keystore -Doozie.https.keystore.pass=password -Djava.library.path=/usr/hdp/2.6.5.3008-11/hadoop/lib/native/Linux-amd64-64 -Djava.endorsed.dirs=/usr/lib/bigtop-tomcat/endorsed -classpath /usr/lib/bigtop-tomcat/bin/bootstrap.jar -Dcatalina.base=/usr/hdp/current/oozie-server/oozie-server -Dcatalina.home=/usr/lib/bigtop-tomcat -Djava.io.tmpdir=/var/tmp/oozie org.apache.catalina.startup.Bootstrap start
+
+default is using embedded derby https://db.apache.org/derby/binaries/djd_derby_intro.pdf, a java database that can be embedded into java based solution.
+
+I think this need separate upload (maybe not needed if we have disk backuped) or let customer use a sql db for it to simpily use backup
+
+jdbc:derby:${oozie.data.dir}/${oozie.db.schema.name}-db;create=true
+
+
+2019-06-09 05:55:10,035  INFO JPAService:520 - SERVER[hn0-testin.4hldsehbfxyengggxchfmkbafd.cx.internal.cloudapp.net] JPA configuration: DriverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver,Url=jdbc:sqlserver://pfcs0tpwwh.database.windows.net;databaseName=v365568aa3b9f7f4830b842aef08bc2dfb4ooziemetastore;sendStringParametersAsUnicode=false;trustServerCertificate=false;encrypt=true;hostNameInCertificate=*.database.windows.net;,MaxActive=10,TestOnBorrow=true,TestOnReturn=true,TestWhileIdle=true,timeBetweenEvictionRunsMillis=45000,numTestsPerEvictionRun=10,ValidationQuery=select count(*) from VALIDATE_CONN,lockTimeout=120000
+
+
+
+-------------------------
