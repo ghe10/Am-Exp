@@ -14,3 +14,6 @@ If terminated, the whole c=high concurrent cluster is gone, (all instances termi
 It can be restarted latter.
 
 It only support spark workload. According to their log, they have some hive relate pkg there.
+
+Data brick has disk file backup in S3， after restart the disk file are preserved.
+https://docs.databricks.com/user-guide/dbfs-databricks-file-system.html
