@@ -1,0 +1,37 @@
+azure db
+
+DTU:
+A database transaction unit (DTU) represents a blended measure of CPU, memory, reads, and writes. The DTU-based purchasing model offers a set of preconfigured bundles of compute resources and included storage to drive different levels of application performance. If you prefer the simplicity of a preconfigured bundle and fixed payments each month, the DTU-based model might be more suitable for your needs.
+
+It is like a pre-defined unit which combines multiple kind of resurces that makes it easier for customer to define resource usage.
+
+https://docs.microsoft.com/en-us/azure/sql-database/sql-database-purchase-models#dtu-based-purchasing-model
+
+I think is is focusing on computation but not storage size
+https://docs.microsoft.com/en-us/azure/sql-database/sql-database-single-database-scale
+
+-----------------------------------
+
+service tier list:
+Latency of changing service tier or rescaling compute size
+https://docs.microsoft.com/en-us/azure/sql-database/sql-database-single-database-scale
+
+When you create an Azure SQL Database, you specify both a Service Tier and a performance level. Tiers are
+Standard and Premium. (It was mentioned earlier that there is also a Basic Tier, used for less demanding workloads.) 
+
+(search for 2.8 Service Tiers in page 13)
+
+https://azure.microsoft.com/mediahandler/files/resourcefiles/microsoft-azure-options-for-sql-server-relational-databases/Microsoft_Azure_Options_for_SQL_Server_Relational_Databases.pdf
+
+-----------------------------------
+
+elastic pool:
+ All the databases in the elastic pool are hosted on the same physical SQL Server
+instance in the data center, so they share the same memory, the same I/O, the same tempdb and the same CPUs.
+Behind the scenes, SQL Server Resource Governor is managing many of the shared resources.
+
+It is still on same server, but the server resource can be shared by multiple databases which helps when some databases are at higj load and the 
+others with low load.
+
+https://azure.microsoft.com/mediahandler/files/resourcefiles/microsoft-azure-options-for-sql-server-relational-databases/Microsoft_Azure_Options_for_SQL_Server_Relational_Databases.pdf
+
