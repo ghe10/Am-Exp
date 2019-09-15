@@ -113,3 +113,11 @@ ENCLOSED BY '"'
 LINES TERMINATED BY '\r\n'
 IGNORE 1 LINES
 (col1, col2, col3, col4, col5...);
+
+
+-------------------------------------------------
+
+ALTER TABLE [人机交互专利统计1] ADD [链接] TEXT;
+UPDATE [人机交互专利统计1]
+SET [链接] = 'https://www.baiten.cn/results/s/' || [申请号] || '/.html?type=s';
+
