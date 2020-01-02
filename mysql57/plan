@@ -1,0 +1,2 @@
+1. Understand basic huge page allocation and heap memory allocation for mysqld
+2. Go into the server to find the usage of storage engine
