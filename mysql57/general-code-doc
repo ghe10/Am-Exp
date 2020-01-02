@@ -1,2 +1,35 @@
 /sql/main.cc：
 entry of mysqld server execution
+
+/sql/mysqld.cc
+mysqld_main() actually initialized the server and start running
+
+- init my_sys library & pthreads  my_init()
+- load default config load_defaults()
+- load performance schema related staff, performance schema is a schema that provides data for performance, the implementation is like a separate storage engine: https://dev.mysql.com/doc/dev/mysql-server/latest/PAGE_PFS.html#PFS_MAIN_INTRO
+- load statements init_sql_statement_names() from com_stat
+- init_common_variables() : This is important, it is setting the host, binlog, log file, default storage engine and memory stack usage etc. note that huge pages are planned here
+  - #define MYSQLD_ABORT_EXIT 1 will happen if the init failed
+- my_thread_attr_setstacksize() and related code is setting thread stack size
+- my_setwd() set network directory
+- change owner of data directory
+- init_server_components() init query cache, table definition, host cache, slaves if we have replication etc
+- partitioning_init() is for performance schema
+- prepare something for binlog ???
+-init_ssl
+- network_init() : prepare socket for listening on specfic port fro connection
+- create pid file
+- reload_optimizer_cost_constants() load optimizer config from config file
+- servers_init() defined in sql_servers.cc
+- perfromace schema related check
+- execute_ddl_log_recovery() !!!!!!
+- start_processing_signals();
+- bootstrap() ???
+- read and execute init file read_init_file()
+- start_handle_manager();
+- create_compress_gtid_table_thread();
+- start_processing_signals(); note that signal handler has the ability to kill the listener
+- terminate_compress_gtid_table_thread()
+- my_thread_join() waiting mysql to terminate, then join the thread and exit with success if possible
+
+
