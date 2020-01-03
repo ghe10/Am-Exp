@@ -18,9 +18,16 @@ mysqld_main() actually initialized the server and start running
 - prepare something for binlog ???
 -init_ssl
 - network_init() : prepare socket for listening on specfic port fro connection
+  - it used to be called handle_connections_sockets() I think 
+  - it creates Mysqld_socket_listener(), and create upper layer wrapper of if named as Connection_acceptor()
+  - then Connection_acceptor -> init_connection_acceptor() is called -> setup_listener() in /sql/socket_connection.cc
+  -   mysqld_socket_acceptor->connection_event_loop(); is called in line 4955 in main to start a regular endless wait loop in main thread( potentially more threads and accept connection)
+  -   note hat a lot of things are done in the middle for prepare to reach the init of the connection acceptor
+  https://dev.mysql.com/doc/internals/en/guided-tour-skeleton.html
+  
 - create pid file
 - reload_optimizer_cost_constants() load optimizer config from config file
-- servers_init() defined in sql_servers.cc
+- servers_init() defined in sql_servers.cc      servers_init(0); is in 4820, connection_event_loop is after this
 - perfromace schema related check
 - execute_ddl_log_recovery() !!!!!!
 - start_processing_signals();
