@@ -1,2 +1,8 @@
 1. Understand basic huge page allocation and heap memory allocation for mysqld
 2. Go into the server to find the usage of storage engine
+
+
+3. Road to storage engine: from /sql/sql_insert.cc etc file, each of these files will work on a specifc part of sql query and calls lower lever
+   torage engine api to achieve it.
+   guessed route: sql_prepare, sql_parse, execute
+   We will follow sql_insert.cc's path to go through the path and understand what is going on from a query to engine. https://dev.mysql.com/doc/internals/en/guided-tour-skeleton.html
