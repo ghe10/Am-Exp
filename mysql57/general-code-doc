@@ -33,3 +33,19 @@ mysqld_main() actually initialized the server and start running
 - my_thread_join() waiting mysql to terminate, then join the thread and exit with success if possible
 
 
+/sql/handler.h or .cc:
+These files now include the handlers for mysql storage engines including innodb, ndb is not here
+Note this is different from what is in 5.1 where each engine has its own handler https://dev.mysql.com/doc/internals/en/guided-tour-majordir-sql.html
+- the above might be wrong as innobase has its own handler file and ha_xxx files.
+
+/storage/innobase/hd_innodb.h: 
+  /** The class defining a handle to an InnoDB table */
+   class ha_innobase: public handler
+   
+   This indicates storage engine needs to inherite handler class. 
+
+   handler.h is in /sql/ folder and has the following definition: 
+   class handler :public Sql_alloc
+   {
+      friend class Partition_handler;
+      ....
