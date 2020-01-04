@@ -1,0 +1,5 @@
+/sql/sql_insert.cc
+
+bool Sql_cmd_insert::execute(THD *thd)
+
+- open_temporary_tables() 
