@@ -1,0 +1,23 @@
+THD: defined in /sql/sql_class.h
+
+This is the thread 
+
+/**
+  @class THD
+  For each client connection we create a separate thread with THD serving as
+  a thread/connection descriptor
+*/
+
+//line 1400:
+
+class THD :public MDL_context_owner,
+           public Query_arena,
+           public Open_tables_state
+           
+THD end at line 4561, find it with Ctrl + M
+
+
+
+-------------------------
+
+LEX *lex;                                     // parse tree descriptor
