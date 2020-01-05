@@ -1,5 +1,10 @@
+https://dev.mysql.com/doc/internals/en/transactions-data-layout.html
+
+
 /sql/sql_insert.cc
 
 bool Sql_cmd_insert::execute(THD *thd)
 
 - open_temporary_tables() 
+
+
