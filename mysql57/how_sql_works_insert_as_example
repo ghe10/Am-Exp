@@ -1,7 +1,10 @@
 https://dev.mysql.com/doc/internals/en/transactions-data-layout.html
 
-
+main implementation (upper level)
 /sql/sql_insert.cc
+
+lower level:
+/sql/sql_data_change.h This class encapsulates a data change operation. the related .h and .cc file will lead to actual result we need 
 
 bool Sql_cmd_insert::execute(THD *thd)
 
