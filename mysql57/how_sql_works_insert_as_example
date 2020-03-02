@@ -1,13 +1,43 @@
 https://dev.mysql.com/doc/internals/en/transactions-data-layout.html
 
-main implementation (upper level)
+-------------------------------------------------------------------
+operation encapsulation:
+/sql/sql_data_change.h This class encapsulates a data change operation. the related .h and .cc file will lead to actual result we need 
+- ha_rows: is a number
+- this is an in-memory data structure to store informaion on table to operate on and which column is goign to be updated as some default update
+  methods (for example auto increment I guess)
+
+-TABEL is defined in/mysql/table.h
+
+-------------------------------------------------------------------
+/sql/sql_insert.h
+
+Query_result_insert
+-It is likely to be used for both destination to 1 or more tables
+     @param table_list_par   The table reference for the destination table.
+     @param table_par        The destination table. May be NULL.
+-  this code support insert part and onconflict update part so it has multiple COPY_INFO
+
+Query_result_create
+- inherits Query_result_insert
+- This is used to create table
+
+Sql_cmd_insert extends Sql_cmd_insert_base
+
+Sql_cmd_insert_select
+-------------------------------------------------------------------
+main implementation (lowel level impl)
 /sql/sql_insert.cc
 
-lower level:
-/sql/sql_data_change.h This class encapsulates a data change operation. the related .h and .cc file will lead to actual result we need 
+Query_result_insert::xxxx can be used to find mapping between .h and .cc
+
+Plan: start from 
+Sql_cmd_insert::
+check what is done there
+
 
 bool Sql_cmd_insert::execute(THD *thd)
 
 - open_temporary_tables() 
 
-
+TODO: think about why we do things in this way!!!!
