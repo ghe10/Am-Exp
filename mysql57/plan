@@ -6,3 +6,9 @@
    torage engine api to achieve it.
    guessed route: sql_prepare, sql_parse, execute
    We will follow sql_insert.cc's path to go through the path and understand what is going on from a query to engine. https://dev.mysql.com/doc/internals/en/guided-tour-skeleton.html
+
+4. Step 3 is partially done, but it is hard to udnerstand what is going on pure by code, we need to understand design first.
+   Now read through https://dev.mysql.com/doc/refman/5.7/en/innodb-storage-engine.html to understand how storage engine of innodb works
+   and https://dev.mysql.com/doc/dev/mysql-server/8.0.13/
+   https://dev.mysql.com/doc/internals/en/custom-engine.html
+   http://www.iskm.org/mysql56/pages.html
