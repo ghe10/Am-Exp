@@ -12,3 +12,5 @@
    and https://dev.mysql.com/doc/dev/mysql-server/8.0.13/
    https://dev.mysql.com/doc/internals/en/custom-engine.html
    http://www.iskm.org/mysql56/pages.html
+   
+   understand of mysql query part itself on high level is following storage engine as it is not mostly related to my work
