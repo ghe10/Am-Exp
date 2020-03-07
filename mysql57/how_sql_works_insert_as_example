@@ -41,3 +41,52 @@ bool Sql_cmd_insert::execute(THD *thd)
 - open_temporary_tables() 
 
 TODO: think about why we do things in this way!!!!
+
+Query_result_insert： 
+- need_explain_interceptor () always return true
+- prepare() Create the new table from the selected items.
+  - create_table_from_items() is invoked to create table, it is going to generate a table with fields only for the selected cols/ or just open existing
+- prepare2() 
+  - If the result table is the same as one of the source tables (INSERT SELECT),
+    the result table is not finally prepared at the join prepair phase.
+    Do the final preparation now.
+- send_data() *****
+  - this write the data to disk? and then return the result of write
+  - this is calling write_records() which is also part of the class, faile to understand what iss actually done
+  - restore_record() is called in some casee due to changed by on conflict update
+  - the return value is whether it fails
+- store_values() ***
+  - It is filling in the values to table????? not actual write I think
+  - Item is a parse tree node
+  - fill_record_n_invoke_before_triggers() is invoked, restore_record is done as well. This is in /sql/sql_base.cc. it calls fill_record() to fill in fields with the values
+    - fail to understand it as well****
+ 
+ - write_record()
+  -  Write a record to table with optional deletion of conflicting records, invoke proper triggers if needed.
+  - it is going to write staff to table buffer
+  - it is trying to write to tables file one by one (to buffer only I think) error=table->file->ha_write_row(table->record[0])
+    - int handler::ha_write_row(uchar *buf)
+      - mark transtraction as read_write
+      - write data to buffer MYSQL_TABLE_IO_WAIT()
+        - MYSQL_TABLE_IO_WAIT(PSI_TABLE_WRITE_ROW, MAX_KEY, error, { error= write_row(buf); }), the write_row() is going to be executed based on case
+      - write bin log to its table binlog_log_row() 
+      - the write_row(buf) is going to STORAGE_ENGINE!!!! , one example is ha_innodb.cc
+
+/storage/innobase/handler/ha_innodb.cc
+ha_innobase::write_row()
+- it seems it is using some thread context strategy to find the sql query etc
+-  insert graph is build and executed: 
+   - mysql_row_templ_t*	templ is build as the graph
+      - /* A struct describing a place for an individual column in the MySQL
+             row format which is presented to the table handler in ha_innobase.
+             This template struct is used to speed up row transformations between
+             Innobase and MySQL. */
+      - /storage/innobase/include/row0mysql.h
+   - innobase_srv_conc_enter_innodb(m_prebuilt);
+   - error = row_insert_for_mysql((byte*) record, m_prebuilt);
+- afterwords: error handling etc
+
+
+
+  
+  
