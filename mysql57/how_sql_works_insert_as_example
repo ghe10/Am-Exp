@@ -89,4 +89,20 @@ ha_innobase::write_row()
 
 
   
+  InnoDB is a multi-versioned storage engine: it keeps information about old versions of changed rows, to support transactional features such as concurrency and rollback. This information is stored in the tablespace in a data structure called a rollback segment
+  
+  Each row has last_trans insert/update this row, increasing row id and a pointer to the undo log (rollback segment) for (running trans && used for snapshot read on old staff -> this makes it important to commit trans otherwise we will have a lot of garbage)
+  
+  In the InnoDB multi-versioning scheme, a row is not physically removed from the database immediately when you delete it with an SQL statement. InnoDB only physically removes the corresponding row and its index records when it discards the update undo log record written for the deletion. This removal operation is called a purge, and it is quite fast, usually taking the same order of time as the SQL statement that did the deletion.
+  
+  the purge for deleted rows could be lagging if you do insert and delete at same speed,  innodb_max_purge_lag could help to limit it
+  
+  When a secondary index column is updated, old secondary index records are delete-marked, new records are inserted, and delete-marked records are eventually purged. When a secondary index record is delete-marked or the secondary index page is updated by a newer transaction, InnoDB looks up the database record in the clustered index. In the clustered index, the record's DB_TRX_ID is checked, and the correct version of the record is retrieved from the undo log if the record was modified after the reading transaction was initiated.
+  
+  Secondary index is updated in a way where new data is directly written while old version is markded as delete and being purged once it is not needed for any read (means trans on it are done)
+  
+  overing index
+An index that includes all the columns retrieved by a query. Instead of using the index values as pointers to find the full table rows, the query returns values from the index structure, saving disk I/O. 
+
+
   
