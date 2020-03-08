@@ -104,5 +104,5 @@ ha_innobase::write_row()
   overing index
 An index that includes all the columns retrieved by a query. Instead of using the index values as pointers to find the full table rows, the query returns values from the index structure, saving disk I/O. 
 
-
+current at https://dev.mysql.com/doc/refman/5.7/en/innodb-buffer-pool.html
   
