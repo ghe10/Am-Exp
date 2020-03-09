@@ -106,3 +106,13 @@ An index that includes all the columns retrieved by a query. Instead of using th
 
 current at https://dev.mysql.com/doc/refman/5.7/en/innodb-buffer-pool.html
   
+Buffer pool
+It is using LRU strategy to evict cache.
+
+The pages are saved in to lists, 5/8 are new and remaining are old. The two lists are linked.  The old list is used as canaidate for evict.
+If the old page is accessed, it will be moved to top of new list (if access required by user). Tail is going to be evicted at some point I think.
+
+- Linear fatch: fatch based on: if you read pages linearly, following pages will be read as well,  innodb_read_ahead_threshold is going to control how many sequential read is the linke
+- Random: this doesn't require sequential read, innodb is going to decide what is going to happen if some sequenal pages are in the buffer pool.
+
+
