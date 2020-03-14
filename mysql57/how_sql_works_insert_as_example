@@ -86,7 +86,9 @@ ha_innobase::write_row()
    - error = row_insert_for_mysql((byte*) record, m_prebuilt);
 - afterwords: error handling etc
 
-
+========================================
+INNODB
+========================================
 
   
   InnoDB is a multi-versioned storage engine: it keeps information about old versions of changed rows, to support transactional features such as concurrency and rollback. This information is stored in the tablespace in a data structure called a rollback segment
@@ -104,8 +106,13 @@ ha_innobase::write_row()
   overing index
 An index that includes all the columns retrieved by a query. Instead of using the index values as pointers to find the full table rows, the query returns values from the index structure, saving disk I/O. 
 
+
+=========================================
+INNODB MEMORY STRUCTURE
+=========================================
+
 current at https://dev.mysql.com/doc/refman/5.7/en/innodb-buffer-pool.html
-  
+
 Buffer pool
 It is using LRU strategy to evict cache.
 
@@ -134,3 +141,8 @@ Log buffer -> for redo log
 - Buffer to store logs in memory, default to 16MB. It can avoids writing redo log to disk before commit if query is not too big and not fill the buffer. The buffer will periodically
   flush to disk on necessary. Increase the size if you have large write
 https://dev.mysql.com/doc/refman/5.7/en/innodb-redo-log-buffer.html
+
+
+===================================
+INNODB DISK STRUCTURE
+===================================
