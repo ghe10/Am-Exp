@@ -115,4 +115,22 @@ If the old page is accessed, it will be moved to top of new list (if access requ
 - Linear fatch: fatch based on: if you read pages linearly, following pages will be read as well,  innodb_read_ahead_threshold is going to control how many sequential read is the linke
 - Random: this doesn't require sequential read, innodb is going to decide what is going to happen if some sequenal pages are in the buffer pool.
 
+Change Buffer
+This is the buffer that used to cache changes to secondary indexes when the index's page is not in buffer pool and apply when they get in buffer pool or running purge operation.
 
+- Unlike clustered index(main index I think), the write on secondary index is very likely not consequective on disk, which leads to random disk access and consumes long time.
+  Wait for page to be in buffer pool or do such write together with purge could increase the disk write efficiency.
+https://dev.mysql.com/doc/refman/5.7/en/innodb-change-buffer.html
+
+Adaptive hash index
+- Hash index is used automically by innodb to achieve better performance. It is helpful for small tables which is likely to fit in memory. In this way the search for item with key is fast.
+- There is latch on hashindex so it might be a bottle neck if you have heavy load for  multiple concurrent joins (???) and like or % maching (this makes sense) 
+- you can turn it off if needed
+- after 56, we have parittion and multiple latch on each parititon for the whole hash index instead of one
+https://dev.mysql.com/doc/refman/5.7/en/innodb-adaptive-hash.html
+
+
+Log buffer -> for redo log
+- Buffer to store logs in memory, default to 16MB. It can avoids writing redo log to disk before commit if query is not too big and not fill the buffer. The buffer will periodically
+  flush to disk on necessary. Increase the size if you have large write
+https://dev.mysql.com/doc/refman/5.7/en/innodb-redo-log-buffer.html
