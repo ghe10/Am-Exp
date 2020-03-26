@@ -188,3 +188,33 @@ https://dev.mysql.com/doc/refman/5.7/en/innodb-fulltext-index.html
 
 ---------------------------
 Table spaces
+
+The system tablespace is the storage area for the InnoDB data dictionary, the doublewrite buffer, the change buffer, and undo logs. It may also contain table and index data if tables are created in the system tablespace rather than file-per-table or general tablespaces.
+
+The system tablespace can have one or more data files. By default, a single system tablespace data file, named ibdata1, is created in the data directory. The size and number of system tablespace data files is defined by the innodb_data_file_path startup option. For configuration information, see System Tablespace Data File Configuration.
+
+A file-per-table tablespace contains data and indexes for a single InnoDB table, and is stored on the file system in its own data file.
+
+A general tablespace is a shared InnoDB tablespace that is created using CREATE TABLESPACE syntax
+- it has slight memory advantage over file per table space as its metadata is kept in memory all the time unlinke the file per table
+- it supports everything
+
+Undo tablespaces contain undo logs, which are collections of undo log records that contain information about how to undo the latest change by a transaction to a clustered index record. Undo logs exist within undo log segments, which are contained within rollback segments. The innodb_rollback_segments variable defines the number of rollback segments allocated to each undo tablespace.
+Undo logs can be stored in one or more undo tablespaces instead of the system tablespace. This layout differs from the default configuration in which undo logs reside in the system tablespace. The I/O patterns for undo logs make undo tablespaces good candidates for SSD storage, while keeping the system tablespace on hard disk storage.
+The number of undo tablespaces used by InnoDB is controlled by the innodb_undo_tablespaces configuration option. This option can only be configured when initializing the MySQL instance. It cannot be changed afterward.
+https://dev.mysql.com/doc/refman/5.7/en/innodb-undo-tablespaces.html
+
+temporary tablespace.
+Non-compressed, user-created temporary tables and on-disk internal temporary tables are created in a shared temporary tablespace. The innodb_temp_data_file_path configuration option defines the relative path, name, size, and attributes for temporary tablespace data files. If no value is specified for innodb_temp_data_file_path, the default behavior is to create an auto-extending data file named ibtmp1 in the innodb_data_home_dir directory that is slightly larger than 12MB.
+
+This is removed up on restart and recreated. Recreation failure will cause restart failure
+
+------------------------------------
+InnoDB Data Dictionary
+The InnoDB data dictionary is comprised of internal system tables that contain metadata used to keep track of objects such as tables, indexes, and table columns. The metadata is physically located in the InnoDB system tablespace. For historical reasons, data dictionary metadata overlaps to some degree with information stored in InnoDB table metadata files (.frm files).
+
+-----------------------------------
+https://dev.mysql.com/doc/refman/5.7/en/innodb-doublewrite-buffer.html
+
+
+
