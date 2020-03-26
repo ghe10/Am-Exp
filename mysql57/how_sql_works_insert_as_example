@@ -186,3 +186,5 @@ The index is store in a way where words is mapping to what document it appears i
 Full text index has an insert buffer to avoid a lot of small writes happens and slow down the DB
 https://dev.mysql.com/doc/refman/5.7/en/innodb-fulltext-index.html
 
+---------------------------
+Table spaces
