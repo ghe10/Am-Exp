@@ -152,3 +152,37 @@ All indexes other than the clustered index are known as secondary indexes. In In
 If the primary key is long, the secondary indexes use more space, so it is advantageous to have a short primary key.
 
 https://dev.mysql.com/doc/refman/5.7/en/innodb-physical-structure.html
+
+--------------------------
+Innodb index
+spatial index uses R tree, in all other cases, innodb is using btree
+Innodb is going to reserve some space in each page (default max is 15/16) for future use (trying to, not guarantee)
+If it is below 50% usage, it will do a merge
+
+page size: Supported sizes are 64KB, 32KB, 16KB (default), 8KB, and 4KB. If you define the page size, it can't be changed, and other instance with different page size won't be able to do anything on it for backup etc
+
+- Sorted Index build
+This is using a bottom up way of generating the index.
+- step one, do a scan with sort buffer, when buffer full, sort write to tmp file
+- step two, when all scan done, do a merge sort from files.
+- step three, insert into btree
+  - bottom up approach: point to right most page of all levels of the tree currently have, insert until we get page full (reaching usage factor), then we move the point to next right page that is allocated, insert.
+  - parent link are added when leaf page is full (I assume same for other levels)
+  
+we still uses innodb_fill_factor to configure the usage of a page when we build it.
+Note: the TEXT and BLOB pages which are linked out of the regular leaf pages are not controlled by the usage factor.
+
+https://dev.mysql.com/doc/refman/5.7/en/sorted-index-builds.html
+
+---------------------------
+InnoDB Full-Text Index Design
+InnoDB FULLTEXT indexes have an inverted index design. Inverted indexes store a list of words, and for each word, a list of documents that the word appears in. To support proximity search, position information for each word is also stored, as a byte offset.
+
+The reverse index is done in a way that is placed in multiple INDEX tables in a partioned fashion. When deletion happens, instead of update all the partitions etc, it is going to add the deletion info in a separate full text deletion table.
+When full text related query is executed, it is going to do separate filter and check the delete table to remove results that shouldn't be returned.
+
+The index is store in a way where words is mapping to what document it appears in.
+
+Full text index has an insert buffer to avoid a lot of small writes happens and slow down the DB
+https://dev.mysql.com/doc/refman/5.7/en/innodb-fulltext-index.html
+
