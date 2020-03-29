@@ -233,3 +233,24 @@ By default, the redo log is physically represented on disk by two files named ib
 
 It helps when the flush data to disk is not done and crash happen in the middle.
 
+-----------------------------------
+Undo log
+
+This is used ass crash recovery as well. It is going to be applied to undo log segment and will be used to recover the change if we see some transtractions
+that reserve read image for old data. Besides, in recovery it can be used to rollback not committed transtractions.
+
+Innodb has 128 rollback segments and 32 of them are reserved for tmp table name space. Each page can have 16 undo slots, each can map to a transtraction's usage.
+
+Note that one transtraction could need multiple such slot as it can have different operations.
+
+Undo logs are assigned as needed. For example, a transaction that performs INSERT, UPDATE, and DELETE operations on regular and temporary tables requires a full assignment of four undo logs. A transaction that performs only INSERT operations on regular tables requires a single undo log.
+
+A transaction that performs operations on regular tables is assigned undo logs from an assigned system tablespace or undo tablespace rollback segment. A transaction that performs operations on temporary tables is assigned undo logs from an assigned temporary tablespace rollback segment.
+
+If your transtractions use up the undo space, it is going to be stuck somehow. ?????? how to recover? suggested was rerun transtraction
+https://dev.mysql.com/doc/refman/5.7/en/innodb-undo-logs.html
+
+=================================================
+
+
+
