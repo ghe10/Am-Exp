@@ -252,5 +252,7 @@ https://dev.mysql.com/doc/refman/5.7/en/innodb-undo-logs.html
 
 =================================================
 
+InnoDB locking
 
+https://dev.mysql.com/doc/refman/5.7/en/innodb-locking.html
 
