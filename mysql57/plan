@@ -15,6 +15,16 @@
    
    understand of mysql query part itself on high level is following storage engine as it is not mostly related to my work
 
+4.1 thi whole innodb doc is too long to finish in detail
+Planned next steps:
+Finish the locking section *
+Look through innodb file and row format
+Finish io management which is important *
+Finish backup and recovery *
+Look through replication
+
+
+
 5. after read through high level design, read storage engine code with the code guide 
 https://dev.mysql.com/doc/internals/en/files-in-innodb-sources.html
 
