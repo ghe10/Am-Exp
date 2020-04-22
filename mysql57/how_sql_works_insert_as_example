@@ -283,6 +283,11 @@ Predicate Locks for Spatial Indexes
 InnoDB supports SPATIAL indexing of columns containing spatial columns (see Section 11.4.8, “Optimizing Spatial Analysis”).
 To handle locking for operations involving SPATIAL indexes, next-key locking does not work well to support REPEATABLE READ or SERIALIZABLE transaction isolation levels. There is no absolute ordering concept in multidimensional data, so it is not clear which is the “next” key.
 
+-------------------------------------------------
+Transtraction isolation level
+
+https://dev.mysql.com/doc/refman/5.7/en/innodb-transaction-model.html
+
 
 
 
