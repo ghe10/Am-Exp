@@ -256,3 +256,33 @@ InnoDB locking
 
 https://dev.mysql.com/doc/refman/5.7/en/innodb-locking.html
 
+--Intention locks
+This is a table level lock for multiple lock granlarity. It can be shared or exclusive. The main purpose is to show some trans is locking table/row. (indicate which type of lock (shared or exclusive) a transaction requires later for a row in a table. )
+An intention lock will be granted to next trans traction if its need is not conflict with what the current intention lock is for the table. This lock is table level.
+
+--Record locks:
+Locking on an index record. Innodb has hidden index by default to help on this lock. If you do select * from xxx where a=1 for update; it will lock records with a=1 in xxx table with this.
+
+--Gap locks:
+Locking for gaps, select * from xxx where c BETWEEN 10 and 20 for update; will lock gaps and prevent insert for c in range 10 to 20;
+
+This lock can be hold with conflict, meaning it is just prevent writing, it is not exclusive, i.e. two trans can both block write from 10 to 20.
+
+
+--Next key locks
+record lock + gap lock for gap before the record. This is used in repeatable read which is default to avoid phantom rows.
+
+Insert Intention Locks
+An insert intention lock is a type of gap lock set by INSERT operations prior to row insertion. This lock signals the intent to insert in such a way that multiple transactions inserting into the same index gap need not wait for each other if they are not inserting at the same position within the gap
+
+AUTO-INC Locks
+An AUTO-INC lock is a special table-level lock taken by transactions inserting into tables with AUTO_INCREMENT columns. In the simplest case, if one transaction is inserting values into the table, any other transactions must wait to do their own inserts into that table, so that rows inserted by the first transaction receive consecutive primary key values.
+
+
+Predicate Locks for Spatial Indexes
+InnoDB supports SPATIAL indexing of columns containing spatial columns (see Section 11.4.8, “Optimizing Spatial Analysis”).
+To handle locking for operations involving SPATIAL indexes, next-key locking does not work well to support REPEATABLE READ or SERIALIZABLE transaction isolation levels. There is no absolute ordering concept in multidimensional data, so it is not clear which is the “next” key.
+
+
+
+
