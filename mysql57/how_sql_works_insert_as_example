@@ -287,7 +287,54 @@ To handle locking for operations involving SPATIAL indexes, next-key locking doe
 Transtraction isolation level
 
 https://dev.mysql.com/doc/refman/5.7/en/innodb-transaction-model.html
+------------------
+Repeatable read:
+All following reads are using the snapshot created for the first read.
+// needs to confirm whether we support read after write for same trans
 
+We could have write sken or lost write in this case still:
+14
 
+Repeatable read isolation level guarantees that each transaction will read from the consistent snapshot of the database. In other words, a row is retrieved twice within the same transaction always has similar values.
 
+Many databases such as Postgres, SQLServer in repeatable read isolation level can detect lost update (a special case of write skew) but others don't. (i.e: InnoDB engine in MySQL)
 
+We're back to write skew phenomena problem. There are situations that most of the database engines cannot detect in the repeatable read isolation. One case is when 2 concurrent transactions modifies 2 different objects and making race conditions.
+
+I take an example from the book Designing Data-Intensive Application. Here is the scenario:
+
+You are writing an application for doctors to manage their on-call shifts at a hospital. The hospital usually tries to have several doctors on call at any one time, but it absolutely must have at least one doctor on call. Doctors can give up their shifts (e.g., if they are sick themselves), provided that at least one colleague remains on call in that shift
+
+The next interesting question is how we can implement this under databases. Here is pseudocode SQL code:
+
+BEGIN TRANSACTION;
+    SELECT * FROM doctors
+        WHERE on_call = true
+        AND shift_id = 1234;
+    if (current_on_call >= 2) {
+        UPDATE doctors
+        SET on_call = false WHERE name = 'Alice' AND shift_id = 1234;
+    }
+COMMIT;  
+
+For locking reads (SELECT with FOR UPDATE or LOCK IN SHARE MODE), UPDATE, and DELETE statements, locking depends on whether the statement uses a unique index with a unique search condition, or a range-type search condition.
+
+For a unique index with a unique search condition, InnoDB locks only the index record found, not the gap before it.
+
+For other search conditions, InnoDB locks the index range scanned, using gap locks or next-key locks to block insertions by other sessions into the gaps covered by the range. For information about gap locks and next-key locks, see Section 14.7.1, “InnoDB Locking”.
+---------------------
+
+Read committed:
+each read is using a new snapshot.
+If you do lock read with update in the select query, the lock only locks the row, not the gap. the gap lock is not used here and insert in gaps are allowed.
+
+row level locking still happens for delted, update
+-------------------
+read uncommitted:
+updates from other trasn even not committed will be read, no lock at all in this case.
+
+Note that this read itself is not consistent, it might read data from multiple versions from mutiple time within the trans instead of a snapshot.
+-------------------
+SERIALIZABLE
+
+This level is like REPEATABLE READ, but InnoDB implicitly converts all plain SELECT statements to SELECT ... LOCK IN SHARE MODE if autocommit is disabled. If autocommit is enabled, the SELECT is its own transaction. It therefore is known to be read only and can be serialized if performed as a consistent (nonlocking) read and need not block for other transactions. (To force a plain SELECT to block if other transactions have modified the selected rows, disable autocommit.)
