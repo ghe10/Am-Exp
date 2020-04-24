@@ -290,7 +290,9 @@ https://dev.mysql.com/doc/refman/5.7/en/innodb-transaction-model.html
 ------------------
 Repeatable read:
 All following reads are using the snapshot created for the first read.
-// needs to confirm whether we support read after write for same trans
+// needs to confirm whether we support read after write for same trans: yes we have read after write guarantee in same trasntraction for consistent read (which includes staff with snapshot reads):
+. The exception to this rule is that the query sees the changes made by earlier statements within the same transaction. This exception causes the following anomaly: If you update some rows in a table, a SELECT sees the latest version of the updated rows, but it might also see older versions of any rows.
+https://dev.mysql.com/doc/refman/5.7/en/innodb-consistent-read.html
 
 We could have write sken or lost write in this case still:
 14
@@ -338,3 +340,20 @@ Note that this read itself is not consistent, it might read data from multiple v
 SERIALIZABLE
 
 This level is like REPEATABLE READ, but InnoDB implicitly converts all plain SELECT statements to SELECT ... LOCK IN SHARE MODE if autocommit is disabled. If autocommit is enabled, the SELECT is its own transaction. It therefore is known to be read only and can be serialized if performed as a consistent (nonlocking) read and need not block for other transactions. (To force a plain SELECT to block if other transactions have modified the selected rows, disable autocommit.)
+
+
+==================================
+Consistent read info for mysql innodb:
+this is used for the snapshot read related isolation levels above. Note this is a name of mysql implementation, not an isolation level.
+
+Consistent read does not work over DROP TABLE(table destroied) or ALTER TABLE(copy is done in this case).
+
+
+-----------------------
+Locking reads:
+SELECT ... LOCK IN SHARE MODE
+SELECT ... FOR UPDATE
+https://dev.mysql.com/doc/refman/5.7/en/innodb-locking-reads.html
+
+
+
