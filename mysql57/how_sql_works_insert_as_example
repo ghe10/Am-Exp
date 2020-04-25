@@ -372,3 +372,7 @@ Innodb lock upgrade has sequence, if client A request getting X lock on record b
 This could lead to dead lock and mysql will throw error and abort the transtraction that tries to create a dead lock.
 
 
+Dead lock are handled by rollback etc， if the locking table is too long to check, trans will be regarded as having dead lock and rollback as well.
+https://dev.mysql.com/doc/refman/5.7/en/innodb-deadlocks-handling.html
+
+
