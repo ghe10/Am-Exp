@@ -366,5 +366,9 @@ In my opinion, for same transtraction with repeatable read isolation level, this
 same snapshot whent the trans starts. For update etc, next-key lock is on by default so no one would insert anything in the middle. Even they do the next read won't see it as the snapshot is taken before.
 But this do impacts the read committed iolation level as the next-key lock is gone and the snapshot is created on every read action.
 
+--------------------
+Dead lock:
+Innodb lock upgrade has sequence, if client A request getting X lock on record before B. regardless if B have a S lock or not, A must get the X lock before B get it.
+This could lead to dead lock and mysql will throw error and abort the transtraction that tries to create a dead lock.
 
 
