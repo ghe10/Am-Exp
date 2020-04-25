@@ -356,4 +356,15 @@ SELECT ... FOR UPDATE
 https://dev.mysql.com/doc/refman/5.7/en/innodb-locking-reads.html
 
 
+----------------------
+Phantom row:
+
+The so-called phantom problem occurs within a transaction when the same query produces different sets of rows at different times. For example, if a SELECT is executed twice, but returns a row the second time that was not returned the first time, the row is a “phantom” row.
+https://dev.mysql.com/doc/refman/5.7/en/innodb-next-key-locking.html
+
+In my opinion, for same transtraction with repeatable read isolation level, this phantom read would never happen in any case as it is always reading on 
+same snapshot whent the trans starts. For update etc, next-key lock is on by default so no one would insert anything in the middle. Even they do the next read won't see it as the snapshot is taken before.
+But this do impacts the read committed iolation level as the next-key lock is gone and the snapshot is created on every read action.
+
+
 
