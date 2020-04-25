@@ -375,4 +375,21 @@ This could lead to dead lock and mysql will throw error and abort the transtract
 Dead lock are handled by rollback etc， if the locking table is too long to check, trans will be regarded as having dead lock and rollback as well.
 https://dev.mysql.com/doc/refman/5.7/en/innodb-deadlocks-handling.html
 
+-------------------
+file format:
+It is easy to identify the file format used by a given table. The table uses the Antelope file format if the row format reported by SHOW TABLE STATUS is either Compact or Redundant. The table uses the Barracuda file format if the row format reported by SHOW TABLE STATUS is either Compressed or Dynamic.
+
+mysql> SELECT * FROM INFORMATION_SCHEMA.INNODB_SYS_TABLES WHERE NAME='test/t1'\G
+*************************** 1. row ***************************
+     TABLE_ID: 44
+         NAME: test/t1
+         FLAG: 1
+       N_COLS: 6
+        SPACE: 30
+  FILE_FORMAT: Antelope
+   ROW_FORMAT: Compact
+ZIP_PAGE_SIZE: 0
+
+row format:
+The InnoDB storage engine supports four row formats: REDUNDANT, COMPACT, DYNAMIC, and COMPRESSED.
 
