@@ -393,3 +393,25 @@ ZIP_PAGE_SIZE: 0
 row format:
 The InnoDB storage engine supports four row formats: REDUNDANT, COMPACT, DYNAMIC, and COMPRESSED.
 
+==============================================
+Disk io
+
+1. read ahead: innodb do estimated read with large chunks to fully utilizaed the disk io potential and avoid a lot of small reads which causes more io time.
+2. double write buffer:
+  - innodb will do a file write first before write to pages, su if during page write it crashes, the data is still recoverable. The direct file write is generally fine because it is sequencial as far as I understand.
+  
+File Space Management
+This complete differeent from what I see before for aurora but sharing same name....
+https://dev.mysql.com/doc/refman/5.7/en/innodb-file-space.html
+
+
+Checkpointing:
+It iwll improve performance to have large log file (as large as or larger than bugffer pool), it may take long to do recovery if the log to redo is long.
+As innodb is not flusing all pages in buffer pool but doing it in small batches, it helps to add the checkpoint in log file to confirm frm which point we already done with pages.
+So in recovery we can directly start from that point.
+
+fuzzy checkpointing
+A technique that flushes small batches of dirty pages from the buffer pool, rather than flushing all dirty pages at once which would disrupt database processing.
+
+  
+  
