@@ -1,0 +1,9 @@
+innobase_start_or_create_for_mysql() is the init start for innodb server
+
+innobase/jandler/ja_innodb.cc is the handler for innodb plugin, its innobase_init is calling innobase_start_or_create_for_mysql to initialize innodb.
+
+Innodb has its thread pool, os threads, buffer pool ready before return to mysql server that it is ready. We don't need all the details here.
+
+/* The InnoDB handler: the interface between MySQL and InnoDB. */
+
+read ha_innobase::write_row() as example from innobase/handler/ha_innobase.cc
