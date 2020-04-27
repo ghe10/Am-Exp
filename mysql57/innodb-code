@@ -7,3 +7,13 @@ Innodb has its thread pool, os threads, buffer pool ready before return to mysql
 /* The InnoDB handler: the interface between MySQL and InnoDB. */
 
 read ha_innobase::write_row() as example from innobase/handler/ha_innobase.cc
+
+
+m_prebuilt = row_create_prebuilt(ib_table, table->s->reclength); ： initialized a long list of staff, struct defined in rwo0mysql.cc
+
+-> row_insert_for_mysql() in rwo0mysql.cc -> row_insert_for_mysql_using_ins_graph()
+  -> row_get_prebuilt_insert_row()
+  -> row_mysql_convert_row_to_innobase()
+  -> row_ins_step(thr)
+  -> row_ins_index_entry_step() -> row_ins_clust_index_entry() (row0ins.cc) -> row_ins_clust_index_entry_low()
+  -> btr_cur_optimistic_insert() : this one finally lead to a btree operation, this is the close of the inseart call or in other words end layer of it.
