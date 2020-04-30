@@ -11,9 +11,45 @@ read ha_innobase::write_row() as example from innobase/handler/ha_innobase.cc
 
 m_prebuilt = row_create_prebuilt(ib_table, table->s->reclength); ： initialized a long list of staff, struct defined in rwo0mysql.cc
 
+top layer of innodb call:
+ha_innobase::write_row() ->
 -> row_insert_for_mysql() in rwo0mysql.cc -> row_insert_for_mysql_using_ins_graph()
   -> row_get_prebuilt_insert_row()
   -> row_mysql_convert_row_to_innobase()
   -> row_ins_step(thr)
   -> row_ins_index_entry_step() -> row_ins_clust_index_entry() (row0ins.cc) -> row_ins_clust_index_entry_low()
   -> btr_cur_optimistic_insert() : this one finally lead to a btree operation, this is the close of the inseart call or in other words end layer of it.
+
+code path read from https://dev.mysql.com/doc/internals/en/guided-tour-chunk.html to get clear on the first half before reaching the ha_innobase::write_row()
+
+shared_mem_conn_event_handler() {
+   // set up connection acceptor
+   
+   // 
+   
+}
+
+bool mysql_update() {
+  // crazy optimizers ***
+  ...
+  // read
+  init_read_record(); 
+  ...
+   while (true) {
+       if (error || thd.killed) {
+           break;
+       }
+       
+       if (will_batch) {
+           error= table->file->ha_bulk_update_row();
+       } else {
+           error= table->file->ha_update_row();
+       }
+   }
+}
+
+
+ha_update_row() {
+   ha_innobase::update_row(); // => here we get to innodb, yeah!!!!
+}
+
