@@ -53,3 +53,4 @@ ha_update_row() {
    ha_innobase::update_row(); // => here we get to innodb, yeah!!!!
 }
 
+https://dev.mysql.com/doc/internals/en/guided-tour-skeleton.html
