@@ -21,15 +21,42 @@ ha_innobase::write_row() ->
   -> btr_cur_optimistic_insert() : this one finally lead to a btree operation, this is the close of the inseart call or in other words end layer of it.
 
 code path read from https://dev.mysql.com/doc/internals/en/guided-tour-chunk.html to get clear on the first half before reaching the ha_innobase::write_row()
+---------------------------------------
+the following code path are done for going through the path for mysql start to finish an update
 
-shared_mem_conn_event_handler() {
-   // set up connection acceptor
-   
-   // 
-   
+// /sql/mysqld.cc
+main() {
+  ...
+  // initialize the mysql server data stucture etc
+  mysqld_socket_acceptor->connection_event_loop();
+  // if the above loop is done, mysqld is shutting down
 }
 
-bool mysql_update() {
+// /sql/conn_handler/connection_acceptor.cc
+connection_event_loop() {
+    while(!abort()) {
+      wait_for_conn();
+      Connection_handler_manager::process_new_connection();
+    }
+}
+
+// /sql/conn_handler/connection_acceptor.cc
+process_new_connection() {
+    ....
+    Per_thread_connection_handler::add_connection();
+}
+
+Per_thread_connection_handler::add_connection() {
+    mysql_thread_create(); -> which is a definition of my_thread_create(); // mysql_thread.cc where my_thread_handle* is the passed in handler and will be executed in a new pthread to do the job.
+    // the handler is implemented with C in static void *handle_connection(void *arg) {} in connection_handler_per_thread.cc
+    
+    // this should connects with the mysql_update following
+    
+    // seems that sql/conn_handler/channel_info.h and .cc plays an inportant roll in passing down info for what to do
+    // seems not, still has gap on how it figure out what to call next
+}
+
+bool mysql_update() { // refactored, now it is Query_result_update::do_updates() it seems in sql_update.cc
   // crazy optimizers ***
   ...
   // read
@@ -41,7 +68,7 @@ bool mysql_update() {
        }
        
        if (will_batch) {
-           error= table->file->ha_bulk_update_row();
+           error= table->file->ha_bulk_update_row(); // in mysql 8.0 we are still doing ha_update_row() to call innodb handler etc, the outer logic changed a bit in detail
        } else {
            error= table->file->ha_update_row();
        }
