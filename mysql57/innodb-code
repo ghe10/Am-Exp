@@ -50,10 +50,34 @@ Per_thread_connection_handler::add_connection() {
     mysql_thread_create(); -> which is a definition of my_thread_create(); // mysql_thread.cc where my_thread_handle* is the passed in handler and will be executed in a new pthread to do the job.
     // the handler is implemented with C in static void *handle_connection(void *arg) {} in connection_handler_per_thread.cc
     
+    init_new_thd(channel_info) {
+       channel_info->create_thd();
+       thd_set_thread_stack(thd, (char *)&thd); // this only do one thing: set the stack address, nothing else
+       store_globals(); // store some thread info
+    }
+    
+    
+    thd_prepare_connection(thd) {
+      login_connection(); // auth user
+      
+      thd_prepare_connection();
+      while (thd_connection_alive(thd)) {
+        if (do_command(thd)) break; // in do_command in sql_parse.cc, it will figure out command and do return_value = dispatch_command(thd, &com_data, command);
+      }
+    }
+    
     // this should connects with the mysql_update following
     
     // seems that sql/conn_handler/channel_info.h and .cc plays an inportant roll in passing down info for what to do
     // seems not, still has gap on how it figure out what to call next
+    
+    /*
+     This abstract base class represents connection channel information
+     about a new connection. Its subclasses encapsulate differences
+     between different connection channel types.
+    */
+    
+    
 }
 
 bool mysql_update() { // refactored, now it is Query_result_update::do_updates() it seems in sql_update.cc
