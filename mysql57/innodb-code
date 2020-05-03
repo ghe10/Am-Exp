@@ -22,7 +22,11 @@ ha_innobase::write_row() ->
 
 code path read from https://dev.mysql.com/doc/internals/en/guided-tour-chunk.html to get clear on the first half before reaching the ha_innobase::write_row()
 ---------------------------------------
-the following code path are done for going through the path for mysql start to finish an update
+---------------------------------------
+---------------------------------------
+the following code path are done for going through the path for mysql start to finish an update.
+- DO remember that connection is a connection, it is not necessarily have 1 sql query or transtraction only!!!!!!!!!!!
+- When connection is ready, the client even havent send out any query command to the server!!!!!!!!
 
 // /sql/mysqld.cc
 main() {
@@ -62,22 +66,75 @@ Per_thread_connection_handler::add_connection() {
       
       thd_prepare_connection();
       while (thd_connection_alive(thd)) {
-        if (do_command(thd)) break; // in do_command in sql_parse.cc, it will figure out command and do return_value = dispatch_command(thd, &com_data, command);
+        if (do_command(thd)) break;
+        // in do_command in sql_parse.cc, it will figure out command and do
+        //return_value = dispatch_command(thd, &com_data, command);
       }
     }
     
     // this should connects with the mysql_update following
     
-    // seems that sql/conn_handler/channel_info.h and .cc plays an inportant roll in passing down info for what to do
-    // seems not, still has gap on how it figure out what to call next
+    //  sql/conn_handler/channel_info.h and .cc plays a role in passing the start time stamp down and some other methods as well, the parser is actually going to decide what is going
+    // to be done and how it is going to be done lol.
     
-    /*
-     This abstract base class represents connection channel information
-     about a new connection. Its subclasses encapsulate differences
-     between different connection channel types.
-    */
+}
+
+/**
+  Read one command from connection and execute it (query or simple command).
+  This function is called in loop from thread function.
+
+  For profiling to work, it must never be called recursively.
+
+  @retval
+    0  success
+  @retval
+    1  request of thread shutdown (see dispatch_command() description)
+*/
+do_command(thd) {
+    my_net_set_read_timeout(net, thd->variables.net_wait_timeout); // blocking call on getting trans
     
+    ... // verify command correctnexx etc
     
+    ... // refresh command read time out value to let the connection stay alive \
+    
+    return_value = dispatch_command(thd, &com_data, command); // dispatch and execute the command
+}
+
+dispatch_command() {
+  switch (CMD) {
+    ....
+    COM_QUERY: // this is a command of type sql query, check payload on the query details and execute it 
+               // the query is in a string format https://dev.mysql.com/doc/dev/mysql-server/latest/page_protocol_com_query.html
+       mysql_parse(thd, &parser_state); // this will some how go to mysql_execute_command(); in sql_parse.cc int SQLCOM_UPDATE
+       .....
+  }
+}
+
+mysql_parse() {
+   mysql_execute_command();
+}
+
+mysql_execute_command() {
+    //query planning etc
+    ...
+    switch(sql_command):
+      ...
+      SQLCOM_UPDATE:
+        res = lex->m_sql_cmd->execute(thd); 
+        // lex is defined in sql_lex.cc and sql_lex.h.
+        // m_sql_cmd is of type   Sql_cmd *m_sql_cmd; from /sql/sql_cmd.h
+        // some one is implementing this interface for execute() -> that is class Sql_cmd_call : public Sql_cmd_dml in /sql/sql_call.h and .cc
+        break;
+     ...
+   
+}
+
+// sql_update.h has the implementation for Sql_cmd_dml.h
+// Sql_cmd_update -> Sql_cmd_dml -> Sql_cmd
+class Sql_cmd_update final : public Sql_cmd_dml {
+   execute() // this is the important one but we can't find it for some reason, If the statement is already prepared, this step is skipped...... wtf https://dev.mysql.com/doc/dev/mysql-server/8.0.12/group__Query__Optimizer.html#ga527256fa79632df61f4c0900c4df0a8c
+   // then ??? how this works
+
 }
 
 bool mysql_update() { // refactored, now it is Query_result_update::do_updates() it seems in sql_update.cc
