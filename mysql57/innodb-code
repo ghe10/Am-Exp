@@ -137,6 +137,20 @@ class Sql_cmd_update final : public Sql_cmd_dml {
 
 }
 
+
+/* mysql 8.0 version*/
+
+bool Sql_cmd_update::execute_inner(THD *thd) {
+  update_single_table(); // there is a multiple table version as well in sql_update.cc. execute should call it, at least true for insert
+}
+
+bool Sql_cmd_update::update_single_table(THD *thd) {
+    ....
+    table->file->ha_update_row(table->record[1], table->record[0]); // there is a batch version in another code path
+}
+
+/* mysql 5.7.12 version
+*/
 bool mysql_update() { // refactored, now it is Query_result_update::do_updates() it seems in sql_update.cc
   // crazy optimizers ***
   ...
