@@ -175,4 +175,19 @@ ha_update_row() {
    ha_innobase::update_row(); // => here we get to innodb, yeah!!!!
 }
 
+// ha_inoodb.cc
+update_row() {
+    //....
+    uvect = row_get_prebuilt_update_vector(m_prebuilt);
+    
+    error = calc_row_difference(uvect, old_row, new_row, table, m_upd_buf,
+                              m_upd_buf_size, m_prebuilt, m_user_thd);
+    
+    innobase_srv_conc_enter_innodb(m_prebuilt);
+
+    error = row_update_for_mysql((byte *)old_row, m_prebuilt);
+}
+
+
+
 https://dev.mysql.com/doc/internals/en/guided-tour-skeleton.html
