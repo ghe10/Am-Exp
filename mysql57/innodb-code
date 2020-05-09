@@ -192,5 +192,42 @@ update_row() {
 
 https://dev.mysql.com/doc/internals/en/guided-tour-skeleton.html
 
+
+---------------
+some random staff on the update code path
+
 need to check what is in m_prebuilt:
 uvect = row_get_prebuilt_update_vector(m_prebuilt);
+
+/** Allocates and zero-fills n bytes of memory from a memory heap.
+@param[in]	heap	memory heap
+@param[in]	n	number of bytes; if the heap is allowed to grow into
+the buffer pool, this must be <= MEM_MAX_ALLOC_IN_BUF
+@return allocated, zero-filled storage */
+UNIV_INLINE
+void *mem_heap_zalloc(mem_heap_t *heap, ulint n) {
+  ut_ad(heap);
+  ut_ad(!(heap->type & MEM_HEAP_BTR_SEARCH));
+  return (memset(mem_heap_alloc(heap, n), 0, n));
+}
+
+http://mysql.rjweb.org/doc.php/memory
+https://dev.mysql.com/doc/refman/5.6/en/memory-use.html
+https://dev.mysql.com/doc/refman/8.0/en/memory-use.html
+InnoDB allocates memory for the entire buffer pool at server startup, using malloc()
+
+memory allocation eventually would call mem_heap_create_block_func() to get new block. this is in memory.cc
+
+if (dynamic || len < PAGE_SIZE / 2) 
+   block = static_cast<mem_block_t *>(ut_malloc_nokey(len));
+else 
+   if MEM_HEAP_BTR_SEARCH
+      ... something I am not sure, seems heap already have the mnemory allocated
+   else 
+      buf_block = buf_block_alloc(nullptr); // seems using buffer pool memory which is already allocated up on engine start
+      // this is related to buffer pool LRU etc to get a page, seems interesting as buffer pool could be used for update etc?
+
+
+mini transaction (so called mtr - mtr_t)
+
+
