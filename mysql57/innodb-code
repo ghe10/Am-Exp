@@ -192,6 +192,24 @@ update_row() {
 
 https://dev.mysql.com/doc/internals/en/guided-tour-skeleton.html
 
+row_update_for_mysql((byte *)old_row, m_prebuilt) {
+  ....
+  // prepare m_prebuild if not yet initialized, allocate memory, build update node in update graph ??? etc
+  ....
+  // check if tx is already aborted
+  ....
+  /** Enter InnoDB engine after checking the max number of user threads
+allowed, else the thread is put into sleep.
+@param[in,out]	prebuilt	row prebuilt handler */
+  innobase_srv_conc_enter_innodb(row_prebuilt_t *prebuilt);
+  
+  row_update_for_mysql();
+  
+  // if has auto increment field, update it as well
+  row_upd_get_new_autoinc_counter();
+  
+  // error handling etc
+}
 
 ---------------
 some random staff on the update code path
