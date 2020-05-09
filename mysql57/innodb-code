@@ -199,8 +199,8 @@ row_update_for_mysql((byte *)old_row, m_prebuilt) {
   // check if tx is already aborted
   ....
   /** Enter InnoDB engine after checking the max number of user threads
-allowed, else the thread is put into sleep.
-@param[in,out]	prebuilt	row prebuilt handler */
+     allowed, else the thread is put into sleep.
+     @param[in,out]	prebuilt	row prebuilt handler */
   innobase_srv_conc_enter_innodb(row_prebuilt_t *prebuilt);
   
   row_update_for_mysql();
@@ -211,6 +211,25 @@ allowed, else the thread is put into sleep.
   // error handling etc
 }
 
+/** Does an update or delete of a row for MySQL.
+    @param[in]	mysql_rec	row in the MySQL format
+    @param[in,out]	prebuilt	prebuilt struct in MySQL handle
+    @return error code or DB_SUCCESS */
+    // row0mysql.cc
+dberr_t row_update_for_mysql(const byte *mysql_rec, row_prebuilt_t *prebuilt)
+    MY_ATTRIBUTE((warn_unused_result)) {
+    // staff iunside this shit is complicated btree actions in multiple methods
+    if (prebuilt->table->is_intrinsic()) {
+    //  update the role
+    return (row_del_upd_for_mysql_using_cursor(mysql_rec, prebuilt));
+  } else {
+    ut_a(prebuilt->template_type == ROW_MYSQL_WHOLE_ROW);
+    return (row_update_for_mysql_using_upd_graph(mysql_rec, prebuilt));
+  }
+}
+
+    
+    
 ---------------
 some random staff on the update code path
 
