@@ -27,4 +27,10 @@ Look through replication -> just commands, binlog seems not specific for innodb 
 5. after read through high level design, read storage engine code with the code guide 
 https://dev.mysql.com/doc/internals/en/files-in-innodb-sources.html
 
+5.1 read update as an example, general code path info in https://github.com/ghe10/Am-Exp/blob/master/mysql57/innodb-code
+some details are understanded, others missing
+
+5.2 understand how mysql80 flush log/page to disk, this should be a pure innodb logic rather than pure customer driven which is
+    leaded by sql command
+
 mysql code guide is much more complicated and should be done latter
