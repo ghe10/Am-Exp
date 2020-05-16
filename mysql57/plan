@@ -28,7 +28,7 @@ Look through replication -> just commands, binlog seems not specific for innodb 
 https://dev.mysql.com/doc/internals/en/files-in-innodb-sources.html
 
 5.1 read update as an example, general code path info in https://github.com/ghe10/Am-Exp/blob/master/mysql57/innodb-code
-some details are understanded, others missing
+some details are understanded, others missing. On branch update_path_break_through
 
 5.2 understand how mysql80 flush log/page to disk, this should be a pure innodb logic rather than pure customer driven which is
     leaded by sql command
