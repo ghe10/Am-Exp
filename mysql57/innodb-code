@@ -203,6 +203,9 @@ row_update_for_mysql((byte *)old_row, m_prebuilt) {
      @param[in,out]	prebuilt	row prebuilt handler */
   innobase_srv_conc_enter_innodb(row_prebuilt_t *prebuilt);
   
+  row_prebuilt_t
+  https://dev.mysql.com/row_prebuilt_tdoc/dev/mysql-server/8.0.11/structrow__prebuilt__t.html#details
+  
   row_update_for_mysql();
   
   // if has auto increment field, update it as well
@@ -228,8 +231,19 @@ dberr_t row_update_for_mysql(const byte *mysql_rec, row_prebuilt_t *prebuilt)
   }
 }
 
-    
-    
+
+row_del_upd_for_mysql_using_cursor() -> row_update_inplace_for_intrinsic() // in cases where the row size is not changing, no btree split (which is checked during execution)
+->
+
+{. // innobase/mysql/row0mysql.cc
+mtr_start(&mtr);
+row_upd_rec_in_place()
+  ->
+  rec_set_nth_field() // this is from an ic file with memcpy as lower level impelementation, load pages that has the data into memory seems handled by the btree search action
+  ---------------
+mtr_commit(&mtr); //is called after the update, not sure how this works, implementation seems in .ic as well
+}
+
 ---------------
 some random staff on the update code path
 
