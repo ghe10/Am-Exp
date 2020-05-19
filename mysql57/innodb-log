@@ -1,0 +1,11 @@
+start from log0log.cc
+
+The whole redo log is done via:
+- user thread write to log buffer (maybe page in parallel, not sure exactly how the write to btree happens)
+- backgroud thread are flushing logs, these threads seems not using pthread but pure os system calls, not sure why yet
+- user trans commit must wait for log flush for durability before ack to user
+- mini-trans is used for redo log write (each operation), not sure how it commits though
+
+Next: 
+1. dive deep from log0log.cc for basics
+2. understand how mtr works during the whole process (which needs coordination with transtraction management strategy as well)
