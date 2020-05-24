@@ -58,4 +58,7 @@ Redo log consists of following data layers:
    used when we need to write an incomplete log block, which might
    concurrently be receiving even more data from next user threads. In such
    case we first copy the incomplete block to the write ahead buffer.
+-------------
+
+for data structure init, log_t Struct is defined in innobase/include/log0types.h
 
