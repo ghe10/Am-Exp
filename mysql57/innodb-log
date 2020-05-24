@@ -31,3 +31,31 @@ All the flush and check point are done by background thread, user can ask for it
 An interesting functional change:
    This is a functional change - the log buffer could be resized dynamically
    by users (also decreased).
+   
+Redo log consists of following data layers:
+
+-# %Log files (typically 4 - 32 GB) - physical redo files that reside on
+   the disk.
+
+-# %Log buffer (64 MB by default) - groups data to write to log files,
+   formats data in proper way: include headers/footers of log blocks,
+   calculates checksums, maintains boundaries of record groups.
+
+-# %Log recent written buffer (e.g. 4MB) - tracks recent writes to the
+   log buffer. Allows to have concurrent writes to the log buffer and tracks
+   up to which lsn all such writes have been already finished.
+
+-# %Log recent closed buffer (e.g. 4MB) - tracks for which recent writes,
+   corresponding dirty pages have been already added to the flush lists.
+   Allows to relax order in which dirty pages have to be added to the flush
+   lists and tracks up to which lsn, all dirty pages have been added.
+   This is required to not make checkpoint at lsn which is larger than
+   oldest_modification of some dirty page, which still has not been added
+   to the flush list (because user thread was scheduled out).
+
+-# %Log write ahead buffer (e.g. 4kB) - used to write ahead more bytes
+   to the redo files, to avoid read-on-write problem. This buffer is also
+   used when we need to write an incomplete log block, which might
+   concurrently be receiving even more data from next user threads. In such
+   case we first copy the incomplete block to the write ahead buffer.
+
