@@ -9,3 +9,25 @@ The whole redo log is done via:
 Next: 
 1. dive deep from log0log.cc for basics
 2. understand how mtr works during the whole process (which needs coordination with transtraction management strategy as well)
+
+Page is not only storing the real customer data, it also could store logically data like "what is the Btree structure looks like" etc.
+
+Data in the redo log is structured in consecutive blocks of 512 bytes
+(_OS_FILE_LOG_BLOCK_SIZE_). Each block contains a header of 12 bytes
+(_LOG_BLOCK_HDR_SIZE_) and a footer of 4 bytes (_LOG_BLOCK_TRL_SIZE_).
+These extra bytes are also enumerated by lsn values. Whenever we refer to
+data bytes, we mean actual bytes of log records - not bytes of headers and
+footers of log blocks. The sequence of enumerated data bytes, is called the
+sn values. All headers and footers of log blocks are added within the log
+buffer, where data is actually stored in proper redo format.
+
+transaction commit need to wait for the redo log to be flushed to the point before confirm commit back to user.
+
+Inlog0log.cc we have some great comments on how the things work and what user thread / background thread do. An important concept is users
+can write to log buffer concurrently without synchronize with each other, and thet have to wait if the log buffer/file is full for some reason.
+
+All the flush and check point are done by background thread, user can ask for it and wait but can't do it in user thread
+
+An interesting functional change:
+   This is a functional change - the log buffer could be resized dynamically
+   by users (also decreased).
