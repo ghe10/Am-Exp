@@ -58,6 +58,20 @@ Redo log consists of following data layers:
    used when we need to write an incomplete log block, which might
    concurrently be receiving even more data from next user threads. In such
    case we first copy the incomplete block to the write ahead buffer.
+   
+log_start_background_threads() is the key method that goes along with starting background thread for all the log flushing and checkpoint staff
+The log related staff has pointer used fro perfromance schema plus a real reference of the object ?
+
+https://s0dev0mysql0com.icopy.site/doc/dev/mysql-server/8.0.12/log0log_8h_source.html
+
+We are using logflush as an example. log flush has a separate thread that does the job.
+Key points should be understanded:
+- how synchronization happens for flush finish
+- how we avoid synchronization between different write from user thread
+
+void log_flusher(log_t *log_ptr) {} is defined in log0write.cc. it uses an endless loop to keep working on log flushing
+
+
 -------------
 
 for data structure init, log_t Struct is defined in innobase/include/log0types.h
