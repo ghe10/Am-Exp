@@ -70,7 +70,42 @@ Key points should be understanded:
 - how we avoid synchronization between different write from user thread
 
 void log_flusher(log_t *log_ptr) {} is defined in log0write.cc. it uses an endless loop to keep working on log flushing
+log_flush_low() is called inside to finish the actual flush.
 
+Seems that log_t is the object used for flag etc synchronization for mysql. The flag set inside it is used to control the behavior of log flush. Mysql
+should have some limit on how fast you can commit a trans limited by how fast the redo log flash event could happen in period
+
+
+if we do log flush, it is intertesting that innodb is doing:
+        if (step % 1024 == 0) {
+          log_flusher_mutex_exit(log);
+
+          os_thread_sleep(0);
+
+          log_flusher_mutex_enter(log);
+        }
+Seems like it is trying to release the lock once a while so other threads need the lock could acquire it and proceed (this seems easy and might be useful in other cases, but obviously it has a hard requirement on how reliable other staff releases the lock0)
+
+
+fil_flush_file_redo(); is actually flushing logs to disk
+// fil_system->flush_file_redo();
+
+
+// in fil0fil.cc in innobase big path
+/** Flush any pending writes to disk for the redo log. */
+void Fil_shard::flush_file_redo() {
+  /* We never evict the redo log tablespace. It's for all
+  practical purposes a read-only data structure. */
+
+  mutex_acquire(); // log system mutex
+
+  redo_space_flush(); // action line
+
+  mutex_release();
+}
+
+/** Flushes to disk possible writes cached by the OS. */
+void Fil_shard::redo_space_flush() {}
 
 -------------
 
