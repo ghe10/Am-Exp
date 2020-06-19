@@ -9,15 +9,29 @@ Disk is organized into sectors
 File system map sectors to blocks
 - usually one block is 16KB (this is also the default innodb page size)
 
+Os file system uses inode:
+The inode (index node) is a data structure in a Unix-style file system that describes a file-system object such as a file or a directory. Each inode stores the attributes and disk block locations of the object's data.[1] File-system object attributes may include metadata (times of last change,[2] access, modification), as well as owner and permission data.[3]
+Directories are lists of names assigned to inodes. A directory contains an entry for itself, its parent, and each of its children.
+
+
 InnoDB
 - default page size is 16KB
+  - besides header, page is mostly used for store actual data
 - InnoDB allocate disk space with unit of extent for performance
-  - extent is 1MB, contains 64 pages
+  - extent is 1MB, contains 64 consequetive pages
+  - extent uses bit map to store page usage status
+  
 - above extent is segment
+  - A File Segment is a logical unit which is a collection of Pages and Extents.
+  - It’s to make the page management easy. So once we delete the File Segment, we know which all extents and pages are to be freed.
+  - the allocation step size is increasing as the usage is increasing
+  - segment can be separated as leaf segment and non-leaf segment
+  - each segment has its own inode, it should be a separate file at os level
+  
 - above segment is tablespace
+  - allocation is from low page offset to high 
 
-general structure in innoDB:
-
+general file (logical) structure in innoDB:
 -tablespace
  -segments
   -extents
