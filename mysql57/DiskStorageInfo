@@ -1,0 +1,26 @@
+Disk
+Problem to consider: partial write during power off, only one sector write is automic
+
+
+Disk is organized into sectors
+- physical disk: 512 Byte
+- SSD: 4KB
+
+File system map sectors to blocks
+- usually one block is 16KB (this is also the default innodb page size)
+
+InnoDB
+- default page size is 16KB
+- InnoDB allocate disk space with unit of extent for performance
+  - extent is 1MB, contains 64 pages
+- above extent is segment
+- above segment is tablespace
+
+general structure in innoDB:
+
+-tablespace
+ -segments
+  -extents
+    -pages
+     -rows
+     
