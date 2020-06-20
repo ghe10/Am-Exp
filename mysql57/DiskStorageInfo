@@ -38,3 +38,54 @@ general file (logical) structure in innoDB:
     -pages
      -rows
      
+==========================
+Async io
+
+Mysql has multiple options for this, we are focusing on the simulated async io. The main target is to understand what it is trying to do
+and how async io staff works.
+
+Slot struct: this is the async io context information, note it is just context, not including functionality implementation
+
+class AIO: async io array structure
+
+/** Static declarations */ these are arries of async io
+AIO *AIO::s_reads;
+AIO *AIO::s_writes;
+AIO *AIO::s_ibuf;
+AIO *AIO::s_log;
+AIO *AIO::s_sync; // this one is the sync array,. it doesn't need io handler
+
+/** Simulated AIO handler for reaping IO requests */
+class SimulatedAIOHandler {} // line 7214
+
+  /** If there are at least 2 seconds old requests, then pick the
+  oldest one to prevent starvation.  If several requests have the
+  same age, then pick the one at the lowest offset.
+  @return true if request was selected */
+  bool select() {
+    if (!select_oldest()) {
+      return (select_lowest_offset());
+    }
+
+    return (true);
+  }
+
+line 7662:
+// Note: We don't support write combining for simulated AIO.
+
+WTF
+
+os_aio_simulated_handler() does async io actually
+
+m_array is an AIO object!!!!!!!!! ??????? which makes sense actually
+
+SimulatedAIOHandler::check_pending ??? wtf is this thing doing????
+
+Call stack
+srv_start() // doing os_thread_create -> io_handler_thread() // srv0start.cc ->fil_aio_wait() //fil0fil.cc -> os_aio_handler() //os0file.cc -> os_aio_simulated_handler() // if we are using simulated_handler -> os calls
+
+io_handler_thread() {
+  while( not shut down && not all slot empty) {
+    fil_aio_wait();
+  }
+}
