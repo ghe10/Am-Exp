@@ -82,7 +82,14 @@ m_array is an AIO object!!!!!!!!! ??????? which makes sense actually
 SimulatedAIOHandler::check_pending ??? wtf is this thing doing????
 
 Call stack
-srv_start() // doing os_thread_create -> io_handler_thread() // srv0start.cc ->fil_aio_wait() //fil0fil.cc -> os_aio_handler() //os0file.cc -> os_aio_simulated_handler() // if we are using simulated_handler -> os calls
+srv_start() // doing 
+
+// This is the code path we need for async io to happen
+os_thread_create 
+  -> io_handler_thread() // srv0start.cc 
+    ->fil_aio_wait() //fil0fil.cc 
+      -> os_aio_handler() //os0file.cc -> 
+        -> os_aio_simulated_handler() // if we are using simulated_handler -> os calls
 
 io_handler_thread() {
   while( not shut down && not all slot empty) {
@@ -118,8 +125,19 @@ class Fil_shard {
 /** Waits for an AIO operation to complete. This function is used to write the
 handler for completed requests. The aio array of pending requests is divided
 into segments (see os0file.cc for more info). The thread specifies which
-segment it wants to wait for.
+segment it wants to wait for. !!!!!!!
 @param[in]	segment		The number of the segment in the AIO array
                                 to wait for */
 void fil_aio_wait(ulint segment) {
+  os_aio_handler();
 }
+
+Note that segment is an overloaded name here as far as I understand, it is not related to the segment inside table space as far as I see since the segment ids are known already and
+no evidence shows they have an upper layer mapping from table space, eg:
+/** Insert buffer segment id */
+static const ulint IO_IBUF_SEGMENT = 0;
+
+/** Log segment id */
+static const ulint IO_LOG_SEGMENT = 1;
+
+Another evidence is: the threads for io are initialized before we initialize the File_system for innodb and actually starts recovery which helps innodb to understand how many table space it shoud have
