@@ -89,3 +89,26 @@ io_handler_thread() {
     fil_aio_wait();
   }
 }
+
+------------
+The following includes the info on implementation of the file operations:
+
+//fil0fil.cc
+/** The tablespace memory cache; also the totality of logs (the log
+data space) is stored here; below we talk about tablespaces, but also
+the ib_logfiles form a 'space' and it is handled here */
+// this appears to be representing the whole file system, not specific to the table space.
+class Fil_system {
+  vextor<File_shard>;
+ 
+  // on construction, a list of shards are initialized, each has its own lock
+}
+
+/**
+ * This is a sharding data structure, each represents a shard of the whole data in file system, which seems mapping to a single file.
+ * Note this is not 1:1 mapping to table space, it can have many table space inside one file, this can be observed in fil_space_t *get_space_by_name(const char *name)
+ * I think the 1:1 mapping only happens when file per table is enabled
+*/
+class Fil_shard {
+  friend class Fil_system;
+}
