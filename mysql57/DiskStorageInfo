@@ -112,3 +112,14 @@ class Fil_system {
 class Fil_shard {
   friend class Fil_system;
 }
+
+
+// fil0fil.cc this is going to be used to write for async io handler and should be understanded!!!!
+/** Waits for an AIO operation to complete. This function is used to write the
+handler for completed requests. The aio array of pending requests is divided
+into segments (see os0file.cc for more info). The thread specifies which
+segment it wants to wait for.
+@param[in]	segment		The number of the segment in the AIO array
+                                to wait for */
+void fil_aio_wait(ulint segment) {
+}
