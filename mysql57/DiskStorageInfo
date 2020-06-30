@@ -89,13 +89,43 @@ os_thread_create
   -> io_handler_thread() // srv0start.cc 
     ->fil_aio_wait() //fil0fil.cc 
       -> os_aio_handler() //os0file.cc -> 
+      {
         -> os_aio_simulated_handler() // if we are using simulated_handler -> os calls
+        -> complete_io(); // fil0fil.cc, this updates the file update count, also add the file to flush list if os bufferring is enabled, this is another layer of async
+      }
 
+separate function logics:
 io_handler_thread() {
   while( not shut down && not all slot empty) {
     fil_aio_wait();
   }
 }
+
+
+os_aio_simulated_handler() {
+  for(;;) {
+    if (not finding for a pending request) {
+      continue;
+    }
+    
+    if (find a slot that io si completed) { // we have branches that quit early for shutdown, not reading it here  
+      break;
+    }
+    
+    os_event_wait(new io request); // needs to figure out how this is implemented since it is an important piece here
+  }
+  
+  if (find a slot io is completed already) { // handler.select() should be called in the previous for loop for finding a resonable io
+    handler.merge(); // merge adjacent request
+    handler.io();
+    handler.io_complete();
+    handler.done();
+  }
+  
+  // set some retrun data, release lock etc
+  
+}
+
 
 ------------
 The following includes the info on implementation of the file operations:
