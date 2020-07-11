@@ -43,7 +43,7 @@ page is used to acutally store the data, it is part of the table data file
 - the records are stored without order inside the page
 - page storage inside is like a linked list logically, the linked list has order, but the physical data doesn't
 - the data page has metadata for start and end -> page header
-- the index page ????????
+- the index page ????????-------> sorry we only have index page and undo page two page types, but the book didn't specify how it works to support index link storage in non-leaf node, likely storing a poointer in places where row was stored
 page level doesn't have any locking
 - page is the minimum storage unit for innodb
 - Physical page: a page on disk
