@@ -34,3 +34,5 @@ some details are understanded, others missing. On branch update_path_break_throu
     leaded by sql command
 
 mysql code guide is much more complicated and should be done latter
+
+5.3 look into https://github.com/mysql/mysql-server/commit/ce14ef91196c9c46c487b7b31a213c7d6a660af1 to understand some real code change
