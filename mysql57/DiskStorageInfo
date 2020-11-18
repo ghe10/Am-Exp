@@ -18,7 +18,7 @@ InnoDB
 - default page size is 16KB
   - besides header, page is mostly used for store actual data
 - InnoDB allocate disk space with unit of extent for performance
-  - extent is 1MB, contains 64 consequetive pages
+  - extent is 1MB, contains 64 consequetive pages if page size is 16KB
   - extent uses bit map to store page usage status
   
 - above extent is segment
@@ -37,6 +37,8 @@ general file (logical) structure in innoDB:
   -extents
     -pages
      -rows
+     
+The above staff are logical and don't have exact map to os level file system, instead each tablespace could have multiple os level .ibdata files (which are physical)
 
 Page storage:
 page is used to acutally store the data, it is part of the table data file
